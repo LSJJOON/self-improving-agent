@@ -11,7 +11,7 @@
 
 ### 기반 구축
 
-- [ ] 프로젝트 기본 구조 설정 (README.md, .gitignore, 디렉토리 구조)
+- [x] 프로젝트 기본 구조 설정 (README.md, .gitignore, 디렉토리 구조)
 - [ ] 에이전트 핵심 로직 스켈레톤 코드 작성 (main.py)
 - [ ] 설정 파일 추가 (config.yaml 또는 .env)
 - [ ] 기본 로깅 시스템 구현
@@ -55,4 +55,6 @@
 
 > 아래는 에이전트가 코드 분석 중 발견한 개선점을 자동으로 추가하는 영역입니다.
 
-(아직 없음)
+- [ ] pyproject.toml 추가: pip 설치 지원을 위한 패키지 메타데이터 및 빌드 설정 [2026-03-30]
+- [ ] GitHub Issue/PR 템플릿 추가 (.github/PULL_REQUEST_TEMPLATE.md): 에이전트 PR 품질 표준화 [2026-03-30]
+- [ ] agent/main.py 진입점 추가: python -m agent run 명령어로 에이전트를 실행할 수 있는 CLI 구현 [2026-03-30]
