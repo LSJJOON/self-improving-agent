@@ -21,3 +21,16 @@
 - **이유**: BACKLOG.md 최우선 항목인 "기본 구조 설정"을 처리. 제품화를 위해 가장 먼저 필요한 파일들이며, 신규 사용자가 프로젝트를 이해하고 시작할 수 있는 기반을 마련함. .gitignore 없이는 venv, __pycache__ 등이 실수로 커밋될 위험 있음
 - **변경 사항**: README.md (프로젝트 소개, 설치/사용법), .gitignore (Python 표준), agent/__init__.py, tests/__init__.py, docs/.gitkeep 생성
 - **에이전트 자동 추가 백로그**: pyproject.toml 추가, GitHub PR 템플릿 추가, agent/main.py CLI 진입점 구현 (총 3개)
+
+## 2026-03-31 (방향 수정 — Joon 지시)
+
+### 프로젝트 방향 재정의
+
+- **문제**: 에이전트가 "에이전트 실행 인프라" 개선 (LaunchAgent 설정, pyproject.toml, .gitignore 등)에만 집중하고 있었음
+- **올바른 방향**: 에이전트는 매일 **실제 사용자에게 가치 있는 서비스/제품 코드**를 개선해야 함
+- **결정**:
+  - README.md, BACKLOG.md를 "실제 제품 개발" 중심으로 재작성
+  - Phase 1: 시장 조사 → 제품 방향 결정
+  - Phase 2: MVP 개발 (방향 결정 후 에이전트가 자율적으로 채워나감)
+  - 제품 방향은 에이전트가 스스로 조사해서 결정
+- **제거된 백로그 항목**: 메타 자동화 관련 항목들 (LaunchAgent, CLI 인프라 등) — 제품 가치와 무관
