@@ -34,3 +34,12 @@
   - Phase 2: MVP 개발 (방향 결정 후 에이전트가 자율적으로 채워나감)
   - 제품 방향은 에이전트가 스스로 조사해서 결정
 - **제거된 백로그 항목**: 메타 자동화 관련 항목들 (LaunchAgent, CLI 인프라 등) — 제품 가치와 무관
+
+## 2026-03-31 (에이전트 자동 실행)
+
+### agent/main.py CLI 진입점 구현
+
+- **작업**: `agent/main.py` 및 `agent/__main__.py` 작성으로 `python -m agent run` 명령 지원
+- **이유**: README에 CLI 사용법이 명시되어 있으나 실제 구현이 없었음. 사용자가 설치 후 바로 실행 가능한 첫 번째 경험(First Run Experience)을 제공하는 것이 제품 가치의 핵심. `run` / `status` 서브커맨드로 기본 UX 확립, 향후 Claude API 연동의 뼈대 역할.
+- **변경 사항**: `agent/main.py` (argparse CLI, run/status 커맨드), `agent/__main__.py` (모듈 진입점), `BACKLOG.md` 완료 처리 및 신규 항목 3개 추가
+- **에이전트 자동 추가 백로그**: config.yaml 지원, 일간 리포트 생성, Claude API 실제 연동 (총 3개)
