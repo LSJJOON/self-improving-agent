@@ -8,9 +8,9 @@
 
 ---
 
-## 현재 단계: Phase 1 — 시장조사 & 제품 방향 결정
+## 현재 단계: Phase 2 — MVP 개발
 
-Phase 1이 완료되면 DECISIONS.md에 제품 방향을 확정하고 Phase 2로 전환합니다.
+Phase 1 완료 (2026-04-06). DECISIONS.md에 제품 방향 확정됨. Phase 2 MVP 개발 진행 중.
 
 ### Phase 1: 시장조사
 
@@ -60,3 +60,6 @@ Phase 1이 완료되면 DECISIONS.md에 제품 방향을 확정하고 Phase 2로
 - [ ] 랜딩 페이지 HTML/CSS 구현: landing-page-copy.md 기반으로 실제 정적 페이지 코드 작성 (Tailwind CSS) [2026-04-04]
 - [ ] waitlist 이메일 수집 폼 구현: 이메일 입력 → 저장 (JSON 파일 또는 간단한 백엔드) + 확인 메일 발송 로직 [2026-04-04]
 - [ ] Phase 2 전환 준비: Phase 1 조사 결과 종합 정리 + MVP 최소 기능 명세서 초안 작성 [2026-04-04]
+- [ ] Next.js 프로젝트 초기화 + 랜딩 페이지 컴포넌트 구현 (Sprint 1 첫 작업) [2026-04-06]
+- [ ] Supabase 스키마 설계 및 GitHub OAuth 인증 플로우 구현 [2026-04-06]
+- [ ] 에이전트 코어 파이프라인 설계: 레포 분석 → 작업 선정 → PR 생성 흐름 구현 [2026-04-06]

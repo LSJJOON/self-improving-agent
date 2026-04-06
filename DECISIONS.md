@@ -111,3 +111,23 @@
 - **Phase 1 상태**: 본 작업으로 Phase 1 시장조사의 마지막 항목 완료. PR #7(과금 모델)이 머지되면 Phase 2(MVP 개발) 전환 가능.
 - **PR**: (이 스크립트 실행 시 자동 생성)
 - **에이전트 자동 추가 백로그**: 랜딩 페이지 HTML 구현, waitlist 이메일 수집, Phase 2 전환 준비 (총 3개)
+
+## 2026-04-06 (에이전트 자동 실행) Phase 1 완료 → Phase 2 전환, MVP 기술 아키텍처 설계
+
+**작업**: Phase 1 시장조사 완료 선언 및 Phase 2 MVP 개발 착수. `docs/technical/mvp-architecture.md` 생성 — 기술 스택, 시스템 아키텍처, 데이터 모델, 개발 로드맵 정의.
+
+**핵심 결정**:
+- Phase 1 시장조사 완료 (경쟁분석, 타깃사용자, 과금모델, 랜딩카피, 제품명 — 총 6개 리서치)
+- MVP 기술 스택 확정:
+  - 프론트엔드: Next.js 14 + Tailwind + shadcn/ui (Vercel 배포)
+  - 백엔드: FastAPI Python (Railway 배포)
+  - DB: Supabase (PostgreSQL + 내장 Auth)
+  - 에이전트: Python + Claude API + Celery 워커
+- MVP 범위: 단일 레포, 일간 1 PR 생성, 결과 대시보드, 이메일 알림
+- MVP 타임라인: 8주 (4 스프린트), 월 운영비 ~$55-110
+
+**이유**: Phase 1에서 충분한 시장 조사가 완료됨. 제품 방향(1인 개발자 대상 자율 코드 개선 SaaS), 타깃 사용자(인디 해커), 과금 모델(Free/Pro/Team), 브랜딩(ShipCrew 가칭)이 결정됨. 이제 실제 제품을 만들기 시작해야 함. 기술 스택은 1인 개발자가 최소 비용으로 빠르게 구현 가능한 조합으로 선택함.
+
+**변경 사항**: docs/technical/mvp-architecture.md 생성, BACKLOG.md Phase 2 전환, DECISIONS.md 업데이트
+
+**에이전트 자동 추가 백로그**: Next.js 프로젝트 초기화, Supabase 스키마 설계, 에이전트 코어 파이프라인 구현 (총 3개)
