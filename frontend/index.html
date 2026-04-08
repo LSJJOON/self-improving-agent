@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShipCrew — 자는 동안 제품이 자란다</title>
+  <meta name="description" content="인디 해커와 1인 개발자를 위한 자율 제품 개발 에이전트. GitHub 레포를 연결하면 매일 제품 가치를 높이는 PR을 자동으로 만듭니다." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-gradient {
+      background: radial-gradient(ellipse at top, #1e1b4b 0%, #0f0f23 60%);
+    }
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🚢</span>
+        <span class="font-bold text-lg text-white">ShipCrew</span>
+        <span class="text-xs font-medium text-indigo-400 bg-indigo-400/10 px-2 py-0.5 rounded-full">Beta</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
+        <a href="#features" class="hover:text-white transition-colors">기능</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">작동 방식</a>
+        <a href="#pricing" class="hover:text-white transition-colors">가격</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+      </div>
+      <a href="#waitlist"
+         class="text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition-colors">
+        얼리 액세스
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-24 px-4 sm:px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 text-sm text-indigo-300 bg-indigo-400/10 border border-indigo-400/20 px-4 py-2 rounded-full mb-8">
+        <span class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></span>
+        현재 얼리 어답터 waitlist 모집 중
+      </div>
+
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 text-white">
+        자는 동안<br />
+        <span class="gradient-text">제품이 자란다.</span>
+      </h1>
+
+      <p class="text-xl sm:text-2xl text-gray-300 mb-4 leading-relaxed">
+        GitHub 레포를 연결하면, AI 에이전트가 매일<br class="hidden sm:block" />
+        제품 가치를 높이는 PR을 자동으로 만듭니다.
+      </p>
+      <p class="text-base text-gray-500 mb-10">
+        인디 해커와 1인 개발자를 위한 자율 제품 개발 에이전트.
+      </p>
+
+      <div id="waitlist" class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          class="flex-1 px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+        />
+        <button
+          onclick="submitWaitlist()"
+          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors whitespace-nowrap"
+        >
+          이메일 등록 →
+        </button>
+      </div>
+      <p class="text-sm text-gray-600 mt-3">
+        얼리 어답터 50명에게 Pro 플랜 3개월 무료 제공 · 신용카드 불필요
+      </p>
+
+      <!-- Stats -->
+      <div class="flex flex-wrap justify-center gap-8 mt-16 text-center">
+        <div>
+          <div class="text-3xl font-bold text-white">매일 1PR</div>
+          <div class="text-sm text-gray-500 mt-1">꾸준한 제품 성장</div>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-800"></div>
+        <div>
+          <div class="text-3xl font-bold text-white">$29/월</div>
+          <div class="text-sm text-gray-500 mt-1">Devin 대비 1/17 가격</div>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-800"></div>
+        <div>
+          <div class="text-3xl font-bold text-white">5분</div>
+          <div class="text-sm text-gray-500 mt-1">첫 PR까지 걸리는 시간</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          혼자서도 팀처럼 개발합니다
+        </h2>
+        <p class="text-lg text-gray-400">
+          ShipCrew는 당신의 AI 개발 크루. 매일 출근해서 제품을 만들어 놓습니다.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-indigo-500/10 text-2xl mb-4">🚀</div>
+          <h3 class="text-lg font-semibold text-white mb-2">완전 자율 제품 개발</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            시장조사부터 코드까지, 알아서 합니다. 에이전트가 경쟁 분석, 기능 기획, 코드 작성, PR 생성까지
+            전체 루프를 자율 실행합니다. "이거 만들어"라고 지시할 필요가 없습니다.
+          </p>
+        </div>
+
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-green-500/10 text-2xl mb-4">📅</div>
+          <h3 class="text-lg font-semibold text-white mb-2">매일 1PR, 꾸준한 성장</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            매일 오전 실행되어 작고 완성된 변경 하나를 PR로 제출합니다. 큰 리팩토링이 아니라
+            매일 검토 가능한 크기의 개선. 머지 여부는 항상 당신이 결정합니다.
+          </p>
+        </div>
+
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-purple-500/10 text-2xl mb-4">📋</div>
+          <h3 class="text-lg font-semibold text-white mb-2">투명한 의사결정 로그</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            에이전트의 모든 결정은 DECISIONS.md에 기록됩니다. 무엇을, 왜 선택했는지
+            읽을 수 있어 블랙박스가 아닙니다. 에이전트를 신뢰하되, 검증할 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-24 px-4 sm:px-6 bg-gray-900/50">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">3단계로 시작합니다</h2>
+        <p class="text-lg text-gray-400">복잡한 설정 없이, 5분 안에 첫 PR을 받아보세요.</p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">1</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">GitHub 레포 연결</h3>
+            <p class="text-gray-400 text-sm">GitHub App을 설치하고 개선하고 싶은 레포를 선택합니다. 읽기/쓰기 최소 권한만 요청합니다.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">2</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">에이전트가 매일 자율 실행</h3>
+            <p class="text-gray-400 text-sm">매일 오전, 에이전트가 코드베이스를 분석하고 백로그를 확인한 뒤 가장 가치 있는 작업을 선택해 구현합니다.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">3</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">PR 검토 후 머지</h3>
+            <p class="text-gray-400 text-sm">아침에 일어나면 PR이 준비되어 있습니다. 변경 이유와 코드를 확인하고 머지 여부를 결정합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Devin의 1/17 가격으로</h2>
+        <p class="text-lg text-gray-400">1인 개발자가 부담 없이 쓸 수 있는 가격.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="text-sm font-medium text-gray-400 mb-1">Free</div>
+          <div class="text-4xl font-bold text-white mb-1">$0</div>
+          <div class="text-sm text-gray-500 mb-6">/월 · 항상 무료</div>
+          <ul class="space-y-3 text-sm text-gray-400 mb-8">
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 공개 레포 1개</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 주 2회 실행</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 커뮤니티 지원</li>
+            <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> Slack 알림</li>
+            <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> 비공개 레포</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors text-sm font-medium">
+            무료로 시작하기
+          </a>
+        </div>
+
+        <div class="bg-indigo-600 border border-indigo-500 rounded-2xl p-6 relative ring-2 ring-indigo-400 ring-offset-2 ring-offset-gray-950">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="bg-indigo-400 text-indigo-950 text-xs font-bold px-3 py-1 rounded-full">추천</span>
+          </div>
+          <div class="text-sm font-medium text-indigo-200 mb-1">Pro</div>
+          <div class="text-4xl font-bold text-white mb-1">$29</div>
+          <div class="text-sm text-indigo-300 mb-6">/월 · 연간 결제 시 20% 할인</div>
+          <ul class="space-y-3 text-sm text-indigo-100 mb-8">
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> 비공개 레포 3개</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> 매일 실행</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> 실행 리포트 이메일</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> Slack 알림</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> 우선 지원</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 transition-colors text-sm font-bold">
+            Pro로 시작하기
+          </a>
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="text-sm font-medium text-gray-400 mb-1">Team</div>
+          <div class="text-4xl font-bold text-white mb-1">$79</div>
+          <div class="text-sm text-gray-500 mb-6">/월 · 팀 5명까지</div>
+          <ul class="space-y-3 text-sm text-gray-400 mb-8">
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 비공개 레포 10개</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 매일 실행 + 긴급 실행</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 팀 대시보드</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Slack + 이메일 알림</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 전담 지원</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors text-sm font-medium">
+            팀과 함께 시작
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">자주 묻는 질문</h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            에이전트가 만든 PR을 꼭 머지해야 하나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            아닙니다. 모든 PR은 검토 후 머지 여부를 직접 결정합니다. 에이전트는 제안할 뿐, 최종 결정은 항상 개발자의 몫입니다.
+          </p>
+        </details>
+
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            내 코드가 안전한가요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            에이전트는 GitHub App으로 연결되며, 필요한 최소 권한만 요청합니다. 코드는 작업 완료 후 즉시 삭제되며 저장하지 않습니다.
+          </p>
+        </details>
+
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            어떤 언어/프레임워크를 지원하나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            현재 Python, JavaScript/TypeScript, React 프로젝트를 우선 지원합니다. 지원 언어는 지속적으로 확대 중입니다.
+          </p>
+        </details>
+
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            Devin이나 Copilot과 뭐가 다른가요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            Copilot은 코드 자동완성, Devin은 지시받은 작업 수행에 특화되어 있습니다. ShipCrew는 "무엇을 만들지"부터 스스로 결정하는 유일한 완전 자율 제품 개발 에이전트입니다. 가격도 Devin의 1/17 수준입니다.
+          </p>
+        </details>
+
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            언제 출시되나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            현재 MVP 개발 중입니다. waitlist에 등록하시면 베타 출시 시 가장 먼저 알려드립니다. 얼리 어답터 50명에게는 Pro 플랜 3개월 무료 제공 예정입니다.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-24 px-4 sm:px-6 bg-gradient-to-b from-gray-950 to-indigo-950/30">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        오늘 밤부터 제품이 자라기 시작합니다
+      </h2>
+      <p class="text-gray-400 mb-8">가장 먼저 사용해보세요. 얼리 어답터 50명에게 Pro 플랜 3개월 무료.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input
+          id="final-email"
+          type="email"
+          placeholder="your@email.com"
+          class="flex-1 px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+        />
+        <button
+          onclick="submitWaitlistFinal()"
+          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors whitespace-nowrap"
+        >
+          런칭 알림 받기 →
+        </button>
+      </div>
+      <p class="text-sm text-gray-600 mt-3">스팸 없음. 언제든 구독 취소 가능.</p>
+      <div id="success-msg" class="hidden mt-6 p-4 bg-green-900/40 border border-green-700 rounded-xl text-green-400 text-sm">
+        🎉 등록 완료! 베타 출시 시 가장 먼저 연락드리겠습니다.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-10 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🚢</span>
+        <span class="font-medium text-gray-400">ShipCrew</span>
+        <span>· 자는 동안 제품이 자란다</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="https://github.com/LSJJOON/self-improving-agent" target="_blank" class="hover:text-gray-300 transition-colors">GitHub</a>
+        <a href="mailto:hello@shipcrew.dev" class="hover:text-gray-300 transition-colors">문의</a>
+        <span>© 2026 ShipCrew</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function submitWaitlist() {
+      const emailEl = document.querySelector('input[type="email"]');
+      if (!emailEl) return;
+      const email = emailEl.value.trim();
+      if (!email || !email.includes('@')) {
+        emailEl.classList.add('border-red-500');
+        emailEl.focus();
+        setTimeout(() => emailEl.classList.remove('border-red-500'), 2000);
+        return;
+      }
+      document.getElementById('success-msg').classList.remove('hidden');
+      emailEl.value = '';
+    }
+
+    function submitWaitlistFinal() {
+      const emailEl = document.getElementById('final-email');
+      if (!emailEl) return;
+      const email = emailEl.value.trim();
+      if (!email || !email.includes('@')) {
+        emailEl.classList.add('border-red-500');
+        emailEl.focus();
+        setTimeout(() => emailEl.classList.remove('border-red-500'), 2000);
+        return;
+      }
+      document.getElementById('success-msg').classList.remove('hidden');
+      emailEl.value = '';
+    }
+  </script>
+</body>
+</html>
