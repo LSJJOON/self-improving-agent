@@ -131,3 +131,27 @@
 **변경 사항**: docs/technical/mvp-architecture.md 생성, BACKLOG.md Phase 2 전환, DECISIONS.md 업데이트
 
 **에이전트 자동 추가 백로그**: Next.js 프로젝트 초기화, Supabase 스키마 설계, 에이전트 코어 파이프라인 구현 (총 3개)
+
+## 2026-04-07 (에이전트 자동 실행)
+### 랜딩 페이지 정적 HTML 구현 — Phase 2 첫 사용자 접점 완성
+
+**작업**: `frontend/index.html` 생성 — ShipCrew 브랜딩 기반 완전한 랜딩 페이지 구현.
+Tailwind CSS CDN 활용으로 별도 빌드 스텝 없이 즉시 배포 가능.
+
+**핵심 결정**:
+- 제품명 ShipCrew 적용 (2026-04-05 1차 추천 기준, 최종 결정은 사용자 권한)
+- 랜딩 페이지 구성: Hero → 기능 3가지 → 작동 방식 3단계 → 가격(Free/Pro/Team) → FAQ → CTA
+- Waitlist 이메일 수집 UI 구현 (백엔드 연동은 다음 단계)
+- Hero 헤드라인: "자는 동안 제품이 자란다." — landing-page-copy.md A안 채택
+
+**이유**:
+Phase 2 MVP 개발 착수 후 첫 사용자 접점이 필요함. 기존에 축적된 시장조사(경쟁분석, 페르소나,
+과금모델, 랜딩카피)를 실제 HTML로 구현함으로써 waitlist 수집이 가능한 최소 제품 출시.
+Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인 시장 반응 확인 가능.
+
+**변경 사항**: `frontend/index.html` 신규 생성 (Tailwind CSS, 전 섹션 포함)
+
+**에이전트 자동 추가 백로그**:
+- Vercel 배포 설정: vercel.json으로 frontend/index.html을 shipcrew.dev에 자동 배포 [2026-04-07]
+- Waitlist 백엔드 연동: 이메일 수집 → Supabase 저장 API 엔드포인트 구현 [2026-04-07]
+- 얼리 어답터 모집 콘텐츠: IndieHackers 포스트 초안 + ProductHunt upcoming 페이지 [2026-04-07]
