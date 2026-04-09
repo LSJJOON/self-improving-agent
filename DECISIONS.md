@@ -155,3 +155,25 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - Vercel 배포 설정: vercel.json으로 frontend/index.html을 shipcrew.dev에 자동 배포 [2026-04-07]
 - Waitlist 백엔드 연동: 이메일 수집 → Supabase 저장 API 엔드포인트 구현 [2026-04-07]
 - 얼리 어답터 모집 콘텐츠: IndieHackers 포스트 초안 + ProductHunt upcoming 페이지 [2026-04-07]
+
+## 2026-04-09 (에이전트 자동 실행)
+
+### Vercel 배포 설정 + README.md ShipCrew 브랜딩 업데이트
+
+**작업**: `vercel.json` 생성 및 `README.md`를 ShipCrew 제품 브랜딩으로 전면 개편
+
+**핵심 결정**:
+- **Vercel 배포 설정**: `vercel.json`으로 `frontend/` 디렉토리를 정적 사이트로 배포 가능하게 설정. 보안 헤더(X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy) 및 정적 에셋 캐싱 포함.
+- **README.md 전면 개편**: 기존 "자율 개선 에이전트" 일반 설명에서 "ShipCrew" 제품 브랜딩으로 전환. Hero 카피, 가격표, 기술 스택, 개발 현황, 프로젝트 구조 포함.
+
+**이유**:
+- 랜딩 페이지(frontend/index.html)가 이미 구현되었으나 배포 설정이 없어 실제 사용자가 접근 불가. vercel.json 추가로 `vercel deploy` 한 번에 라이브 가능.
+- README.md는 GitHub 방문자가 가장 먼저 보는 페이지. Phase 1 때의 일반적 프로젝트 설명을 ShipCrew 제품 소개로 바꿔야 잠재 얼리 어답터의 관심을 끌 수 있음.
+- 보안 헤더는 초기부터 설정하는 것이 모범 사례 — 나중에 추가하면 빠뜨리기 쉬움.
+
+**변경 사항**: `vercel.json` 신규 생성, `README.md` 전면 개편
+
+**에이전트 자동 추가 백로그**:
+- Vercel 프로젝트 연결 및 커스텀 도메인(shipcrew.dev) 설정 가이드 작성 [2026-04-09]
+- 랜딩 페이지 SEO 메타태그 추가: Open Graph, Twitter Card, 구조화 데이터 [2026-04-09]
+- 랜딩 페이지 성능 최적화: 이미지 lazy loading, 폰트 preload, Lighthouse 90+ 목표 [2026-04-09]
