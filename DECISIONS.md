@@ -177,3 +177,30 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - Vercel 프로젝트 연결 및 커스텀 도메인(shipcrew.dev) 설정 가이드 작성 [2026-04-09]
 - 랜딩 페이지 SEO 메타태그 추가: Open Graph, Twitter Card, 구조화 데이터 [2026-04-09]
 - 랜딩 페이지 성능 최적화: 이미지 lazy loading, 폰트 preload, Lighthouse 90+ 목표 [2026-04-09]
+
+## 2026-04-10 (에이전트 자동 실행)
+
+### 랜딩 페이지 SEO 메타태그 추가 — 검색·소셜 공유 노출 강화
+
+**작업**: `frontend/index.html`의 `<head>`에 Open Graph, Twitter Card, JSON-LD 구조화 데이터, canonical, theme-color, robots, keywords 등 SEO 메타태그 일괄 추가.
+
+**핵심 결정**:
+- **Open Graph 풀세트**: og:title/description/image/url/locale/site_name — Slack/Discord/LinkedIn/카카오톡에서 ShipCrew 링크 공유 시 카드 형태로 노출
+- **Twitter Card**: `summary_large_image` 형식 채택 — Twitter/X에서 큰 이미지 카드로 표시되어 클릭률 상승
+- **JSON-LD SoftwareApplication**: 가격 3개(Free $0 / Pro $29 / Team $79)를 schema.org Offer로 명시 → 구글 리치 결과 자격 확보
+- **og-image 경로**: `https://shipcrew.dev/og-image.png` 로 1200x630 이미지 참조 (실제 PNG 파일은 후속 백로그로 분리)
+- **canonical**: `https://shipcrew.dev/` 단일 URL — www / trailing slash 변형 중복 색인 방지
+- **robots/keywords/author**: 검색엔진 색인 명시 허용, "Devin 대안" 등 핵심 키워드 명시
+
+**이유**:
+- 04-09 작업으로 Vercel 배포 설정(`vercel.json`)이 완료되어 곧 `shipcrew.dev`에 라이브 가능한 상태. 라이브 직전 SEO 메타태그가 없으면 IndieHackers/Twitter/ProductHunt 공유 시 무미건조한 링크로 노출되어 클릭률이 절반 이하로 떨어짐.
+- 백로그의 "얼리 어답터 모집 콘텐츠"(IndieHackers 포스트 초안)와 직결 — 포스트 본문에서 랜딩 페이지를 링크할 때 카드 미리보기가 곧 첫인상.
+- 구조화 데이터(JSON-LD)는 구글 검색 결과에서 가격 정보까지 노출 가능 — 경쟁사 Devin 대비 1/17 가격이라는 차별화를 검색 단계에서 어필.
+- 단일 파일(`frontend/index.html`) 수정으로 변경 범위가 작고 회귀 위험이 낮음 → "작은 단위의 가치 높은 PR" 원칙 준수.
+
+**변경 사항**: `frontend/index.html`의 `<head>` 영역에 SEO 메타태그 약 50줄 추가, `BACKLOG.md` 항목 완료 처리 + 신규 3개 추가.
+
+**에이전트 자동 추가 백로그**:
+- OG/Twitter 카드 이미지(og-image.png) 디자인 — 1200x630 ShipCrew 브랜드 미리보기 이미지 제작 [2026-04-10]
+- sitemap.xml 및 robots.txt 추가 — 검색엔진 크롤링 가이드 및 색인 가속화 [2026-04-10]
+- 랜딩 페이지 영문 버전 작성 — IndieHackers/ProductHunt 영어권 사용자 대응 [2026-04-10]
