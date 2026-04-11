@@ -1,0 +1,8 @@
+# ShipCrew — https://shipcrew.dev
+# 검색엔진 크롤러를 위한 가이드
+
+User-agent: *
+Allow: /
+
+# 사이트맵 위치
+Sitemap: https://shipcrew.dev/sitemap.xml
