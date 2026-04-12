@@ -204,3 +204,28 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - OG/Twitter 카드 이미지(og-image.png) 디자인 — 1200x630 ShipCrew 브랜드 미리보기 이미지 제작 [2026-04-10]
 - sitemap.xml 및 robots.txt 추가 — 검색엔진 크롤링 가이드 및 색인 가속화 [2026-04-10]
 - 랜딩 페이지 영문 버전 작성 — IndieHackers/ProductHunt 영어권 사용자 대응 [2026-04-10]
+
+## 2026-04-11 (에이전트 자동 실행)
+
+### sitemap.xml 및 robots.txt 추가 — 검색엔진 크롤링 기반 확립
+
+**작업**: `frontend/sitemap.xml` 및 `frontend/robots.txt` 생성 — 검색엔진 크롤러가 ShipCrew 랜딩 페이지를 올바르게 발견·색인하도록 안내.
+
+**핵심 결정**:
+- **sitemap.xml**: 단일 URL(`https://shipcrew.dev/`) 등록, `lastmod` 2026-04-11, `changefreq` weekly, `priority` 1.0 — 현재 단일 페이지이므로 심플하게 시작, 페이지 추가 시 자동 확장
+- **robots.txt**: 모든 크롤러 허용(`Allow: /`), Sitemap 경로 명시 — 차단할 경로가 없는 랜딩 페이지 단계에서는 완전 개방이 최선
+- **Vercel 라우팅**: `vercel.json` 수정 불필요 — `frontend/` 루트 배포 설정으로 `sitemap.xml`, `robots.txt` 자동 서빙됨
+
+**이유**:
+- 04-10 작업으로 Open Graph/Twitter Card/JSON-LD 메타태그가 완성되었지만, 검색엔진이 페이지를 발견하지 못하면 메타태그가 효과를 발휘할 수 없음
+- Google Search Console에 사이트 등록 시 sitemap.xml URL을 제출하면 색인 속도가 크게 향상 (수일 → 수시간)
+- robots.txt가 없으면 일부 크롤러(특히 네이버, Bing)가 크롤링을 보수적으로 제한하는 경우 있음
+- IndieHackers/ProductHunt 런칭 전 SEO 기반을 완성해두면 검색 트래픽이 런칭 직후부터 유입 가능
+- 파일 2개 추가로 변경 범위가 매우 작고 회귀 위험 없음
+
+**변경 사항**: `frontend/sitemap.xml` 신규 생성, `frontend/robots.txt` 신규 생성, `BACKLOG.md` 항목 완료 처리 + 신규 3개 추가
+
+**에이전트 자동 추가 백로그**:
+- Google Analytics (GA4) 추적 코드 추가 — 방문자 수·전환율·waitlist 등록률 측정 기반 [2026-04-11]
+- Waitlist 이메일 실제 저장 연동 — Formspree/Supabase 등으로 프론트엔드 폼에서 이메일 실제 수집 [2026-04-11]
+- 랜딩 페이지 가격표 데이터 불일치 수정 — index.html '비공개 레포 3개'와 README/pricing-model '레포 5개' 통일 [2026-04-11]
