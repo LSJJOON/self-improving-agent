@@ -229,3 +229,28 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - Google Analytics (GA4) 추적 코드 추가 — 방문자 수·전환율·waitlist 등록률 측정 기반 [2026-04-11]
 - Waitlist 이메일 실제 저장 연동 — Formspree/Supabase 등으로 프론트엔드 폼에서 이메일 실제 수집 [2026-04-11]
 - 랜딩 페이지 가격표 데이터 불일치 수정 — index.html '비공개 레포 3개'와 README/pricing-model '레포 5개' 통일 [2026-04-11]
+
+## 2026-04-13 (에이전트 자동 실행)
+
+### Waitlist Formspree 연동 + 가격표 불일치 수정
+
+**작업**: `frontend/index.html`의 waitlist 이메일 폼 2개(Hero/Footer)를 Formspree fetch API로 연동하여 실제 이메일 수집 가능하게 만듦. 동시에 Pro 플랜 가격표 데이터 불일치(비공개 레포 3개 → 5개) 수정.
+
+**핵심 결정**:
+- **Formspree 선택**: 정적 사이트에 백엔드 없이 폼 제출 가능, 월 50건 무료, Supabase 엔드포인트 구축 대비 즉시 적용 가능
+- **fetch API 비동기 제출**: 페이지 리로드 없이 UX 유지, 성공/에러 상태 표시
+- **`<form>` 태그 전환**: 기존 `<div>` + `onclick` 방식에서 시맨틱 `<form>` + `submit` 이벤트로 변경 — 접근성·키보드 지원 개선
+- **`name="email"` + `required` 속성 추가**: Formspree 필드 매핑 및 HTML5 네이티브 유효성 검사 활용
+
+**이유**:
+- 04-11 백로그에서 "Waitlist 이메일 실제 저장 연동"과 "가격표 불일치 수정"이 함께 발견됨
+- 랜딩 페이지가 이미 Vercel 배포 가능 상태이나, waitlist 폼이 UI만 있고 실제 이메일을 수집하지 못하는 상태 — 얼리 어답터 모집의 병목
+- Formspree는 정적 사이트에 가장 간편한 솔루션: 가입 → Form ID 발급 → fetch URL만 교체하면 즉시 작동
+- 가격표 불일치(3개 vs 5개)는 사용자 신뢰를 떨어뜨리는 버그 — 함께 수정
+
+**변경 사항**: `frontend/index.html` (Formspree 연동 + 가격 수정), `BACKLOG.md` (2개 완료 + 3개 추가), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- Formspree autoresponder 환영 이메일 설정 — waitlist 등록 시 자동 환영 메일 발송 [2026-04-13]
+- 사용 데모 GIF/영상 섹션 추가 — 랜딩 페이지에 제품 작동 데모 시각 자료 삽입 [2026-04-13]
+- 보안/프라이버시 FAQ 섹션 추가 — GitHub 토큰 권한, 데이터 처리 방침 등 신뢰 구축 콘텐츠 [2026-04-13]
