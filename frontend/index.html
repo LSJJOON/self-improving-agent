@@ -341,6 +341,34 @@
             에이전트는 GitHub App으로 연결되며, 필요한 최소 권한만 요청합니다. 코드는 작업 완료 후 즉시 삭제되며 저장하지 않습니다.
           </p>
         </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            GitHub App은 어떤 권한을 요청하나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            PR 생성에 필요한 최소 권한만 요청합니다: <strong class="text-gray-200">코드 읽기/쓰기</strong>(PR 브랜치 생성용), <strong class="text-gray-200">Pull Request 쓰기</strong>, <strong class="text-gray-200">메타데이터 읽기</strong>. GitHub 시크릿(Secrets), Actions 워크플로우, 결제 정보, 조직 멤버 설정에는 접근하지 않습니다. 언제든지 GitHub Settings에서 앱 권한을 취소할 수 있습니다.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            코드가 AI 학습 데이터로 사용되나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            아닙니다. Anthropic Claude API 사용 계약상 코드는 AI 학습 데이터로 사용되지 않습니다. 코드는 PR 생성 작업 완료 후 즉시 삭제되며, ShipCrew 서버에 원본 코드를 보관하지 않습니다.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            어떤 데이터를 저장하나요?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <div class="text-gray-400 text-sm mt-3 leading-relaxed">
+            <p class="mb-2"><span class="text-green-400 font-medium">저장하는 것:</span> 계정 이메일, 생성된 PR 링크·제목·날짜, 에이전트 실행 로그 (90일 후 자동 삭제).</p>
+            <p><span class="text-red-400 font-medium">저장하지 않는 것:</span> 코드 원본 파일, GitHub 토큰 원문, 환경 변수 및 시크릿, 커밋 히스토리 전체.</p>
+          </div>
+        </details>
 
         <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
           <summary class="font-medium text-white flex items-center justify-between list-none">
