@@ -55,7 +55,22 @@
     }
     </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- Google Analytics 4 — 방문자·전환율 측정 (GA4 Measurement ID는 배포 시 교체) -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-XXXXXXXXXX", {
+        anonymize_ip: true,
+        send_page_view: true
+      });
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
     body { font-family: 'Inter', sans-serif; }
@@ -460,7 +475,13 @@
         var orig = btn.textContent; btn.textContent = "등록 중..."; btn.disabled = true; btn.classList.add("opacity-70","cursor-not-allowed");
         try {
           var res = await fetch(FORMSPREE_URL, { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify({email:email,_subject:"ShipCrew 얼리 액세스 신청",source:form.id==="waitlist-form"?"hero":"footer-cta"}) });
-          if (res.ok) { input.value=""; document.querySelectorAll(".waitlist-success").forEach(function(el){el.classList.remove("hidden");}); } else { throw new Error("fail"); }
+          if (res.ok) { input.value=""; document.querySelectorAll(".waitlist-success").forEach(function(el){el.classList.remove("hidden");});
+          if (typeof gtag === "function") {
+            gtag("event", "waitlist_signup", {
+              event_category: "conversion",
+              event_label: form.id === "waitlist-form" ? "hero" : "footer-cta"
+            });
+          } } else { throw new Error("fail"); }
         } catch(e) { alert("등록 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."); }
         finally { btn.textContent=orig; btn.disabled=false; btn.classList.remove("opacity-70","cursor-not-allowed"); }
       }
