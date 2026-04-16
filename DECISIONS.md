@@ -280,3 +280,32 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - Google Analytics (GA4) 추적 코드 추가 — 방문자 수·전환율·waitlist 등록률 측정 기반 [2026-04-13]
 - 랜딩 페이지 영문 버전 작성 — IndieHackers/ProductHunt 영어권 사용자 대응 [2026-04-13]
 - 사회적 증거(Social Proof) 섹션 추가 — 초기 사용자 후기·GitHub 스타 수·waitlist 인원 표시 [2026-04-13]
+
+
+## 2026-04-16 (에이전트 자동 실행)
+
+### Google Analytics (GA4) 추적 코드 추가 — 데이터 기반 의사결정 기반 확립
+
+**작업**: `frontend/index.html`에 GA4 gtag.js 스크립트 및 waitlist 전환 이벤트 추적 코드 추가
+
+**핵심 결정**:
+- **GA4 선택**: Universal Analytics 지원 종료(2023년 7월)로 GA4가 유일한 선택지. 모든 신규 프로젝트는 GA4 사용 필수.
+- **gtag.js 직접 삽입**: Google Tag Manager(GTM) 없이 최소 구성으로 시작. GTM은 태그 관리가 복잡해지면 도입 고려.
+- **waitlist_signup 이벤트**: 폼 제출 성공 시 `event_category: "engagement"` 이벤트 발생. 이벤트명은 GA4 권장 네이밍 규칙(소문자_언더스코어) 준수.
+- **플레이스홀더 Measurement ID**: 코드에는 `G-XXXXXXXXXX` 사용. 실제 GA4 속성 생성 후 교체 필요 → 수동 작업 이슈 생성.
+
+**이유**:
+- 04-13 작업으로 랜딩 페이지가 Vercel 배포 가능 상태이며, Waitlist Formspree 연동도 완료됨. 이제 트래픽이 유입되기 시작하면 데이터 수집이 필수.
+- GA4 없이는 방문자 수, waitlist 전환율, 유입 경로를 측정할 수 없음 → 얼리 어답터 모집 캠페인(IndieHackers, ProductHunt)의 효과를 판단 불가.
+- 데이터 수집은 빨리 시작할수록 좋음. 1주일만 늦어져도 초기 트래픽 패턴을 영구히 잃게 됨.
+- BACKLOG에서 "Google Analytics (GA4) 추적 코드 추가" 항목이 2회 등장(04-11, 04-13)하며, 제품 가치 측면에서 우선순위가 높다고 판단됨.
+
+**변경 사항**:
+- `frontend/index.html`: `</head>` 직전에 GA4 gtag.js 스크립트 추가 (약 10줄)
+- `submitToFormspree()` 함수 내 `if (res.ok)` 블록에 gtag 이벤트 추적 추가 (약 7줄)
+- `BACKLOG.md`: GA4 항목 2개 완료 처리, 신규 백로그 3개 추가 (랜딩 페이지 A/B 테스트, OG 이미지 실제 디자인, Formspree autoresponder)
+
+**에이전트 자동 추가 백로그**:
+- 랜딩 페이지 A/B 테스트 설정 — Hero 카피 변형 2종 비교로 전환율 최적화 [2026-04-16]
+- OG/Twitter 카드 이미지(og-image.png) 실제 디자인 — Figma/Canva로 1200x630 ShipCrew 브랜드 이미지 제작 [2026-04-16]
+- Formspree autoresponder 환영 이메일 설정 — waitlist 등록 시 자동 환영 메일 발송으로 참여감 강화 [2026-04-16]
