@@ -280,3 +280,29 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - Google Analytics (GA4) 추적 코드 추가 — 방문자 수·전환율·waitlist 등록률 측정 기반 [2026-04-13]
 - 랜딩 페이지 영문 버전 작성 — IndieHackers/ProductHunt 영어권 사용자 대응 [2026-04-13]
 - 사회적 증거(Social Proof) 섹션 추가 — 초기 사용자 후기·GitHub 스타 수·waitlist 인원 표시 [2026-04-13]
+
+## 2026-04-14 (에이전트 자동 실행)
+
+### Google Analytics (GA4) 추적 코드 + Waitlist 전환 이벤트 추가
+
+**작업**: `frontend/index.html`의 `<head>`에 Google Analytics (GA4) gtag.js 스니펫 추가 및 waitlist 폼 제출 성공 시 전환 이벤트(`waitlist_signup`) 발송 코드 삽입.
+
+**핵심 결정**:
+- **GA4 gtag.js 선택**: Google Tag Manager 대비 설정이 간단하고, 정적 사이트에 스크립트 태그 하나로 즉시 적용 가능
+- **커스텀 전환 이벤트**: `waitlist_signup` 이벤트에 `event_label`(hero/footer_cta)을 포함하여 어느 CTA에서 전환이 발생하는지 추적
+- **Measurement ID 플레이스홀더**: `G-XXXXXXXXXX`로 코드에 삽입 — 사용자가 GA4 속성을 생성한 후 실제 ID로 교체 필요
+- **JSON-LD 다음, Tailwind 앞 배치**: SEO 메타태그 블록과 스타일 사이에 위치하여 논리적 순서 유지
+
+**이유**:
+- 04-13 작업으로 Formspree waitlist 폼이 실제 이메일을 수집하게 되었으나, 전환율을 측정할 방법이 없었음
+- SEO 메타태그(04-10), sitemap/robots.txt(04-11) 등 트래픽 유입 기반은 완성되었지만, 유입된 방문자가 실제로 waitlist에 등록하는 비율을 모르면 향후 최적화 방향을 잡을 수 없음
+- IndieHackers/ProductHunt 런칭 전 GA4를 설치해두면 런칭 직후부터 채널별 전환율 데이터 수집 가능
+- Hero CTA vs Footer CTA 전환율 비교 데이터는 향후 랜딩 페이지 A/B 테스트의 베이스라인이 됨
+- 단일 파일 수정, 회귀 위험 없음 — "작은 변경으로 큰 효과" 원칙 부합
+
+**변경 사항**: `frontend/index.html` (GA4 gtag.js + 전환 이벤트), `BACKLOG.md` (2개 완료 + 3개 추가), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- GA4 전환 목표(Goal) 설정 가이드 — waitlist_signup 이벤트를 전환 목표로 등록하는 방법 안내 문서 작성 [2026-04-14]
+- UTM 파라미터 기반 유입 채널 추적 — IndieHackers/ProductHunt/Twitter 등 채널별 waitlist 전환율 비교 가능하게 [2026-04-14]
+- 랜딩 페이지 A/B 테스트 프레임워크 — Hero 카피·CTA 버튼 색상 등 전환율 실험을 위한 기초 인프라 구축 [2026-04-14]
