@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShipCrew — Your Product Grows While You Sleep</title>
+  <meta name="description" content="An autonomous product development agent for indie hackers and solo developers. Connect your GitHub repo and get daily PRs that improve your product automatically." />
+
+  <!-- SEO: Canonical, Open Graph, Twitter Card, JSON-LD -->
+  <link rel="canonical" href="https://shipcrew.dev/en" />
+  <link rel="alternate" hreflang="ko" href="https://shipcrew.dev/" />
+  <link rel="alternate" hreflang="en" href="https://shipcrew.dev/en" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shipcrew.dev/en" />
+  <meta property="og:site_name" content="ShipCrew" />
+  <meta property="og:title" content="ShipCrew — Your Product Grows While You Sleep" />
+  <meta property="og:description" content="Connect your GitHub repo and an AI agent will automatically create daily PRs that increase your product value. Autonomous product development SaaS for indie hackers." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="og:image" content="https://shipcrew.dev/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ShipCrew — AI agent creates daily PRs for your product" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ShipCrew — Your Product Grows While You Sleep" />
+  <meta name="twitter:description" content="Connect your GitHub repo and an AI agent creates daily PRs that improve your product automatically." />
+  <meta name="twitter:image" content="https://shipcrew.dev/og-image.png" />
+  <meta name="twitter:image:alt" content="ShipCrew — AI agent creates daily PRs for your product" />
+
+  <!-- Browser / Search engine -->
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="ShipCrew" />
+  <meta name="keywords" content="ShipCrew, AI coding agent, autonomous development, indie hacker, solo developer, GitHub auto PR, SaaS, Devin alternative, autonomous product development" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ShipCrew",
+    "description": "An autonomous product development SaaS that connects to your GitHub repo and has an AI agent create daily PRs that improve your product.",
+    "url": "https://shipcrew.dev/en",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "author": { "@type": "Organization", "name": "ShipCrew" },
+    "offers": [
+      { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Pro", "price": "29", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Team", "price": "79", "priceCurrency": "USD" }
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-gradient { background: radial-gradient(ellipse at top, #1e1b4b 0%, #0f0f23 60%); }
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15); }
+    .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🚢</span>
+        <span class="font-bold text-lg text-white">ShipCrew</span>
+        <span class="text-xs font-medium text-indigo-400 bg-indigo-400/10 px-2 py-0.5 rounded-full">Beta</span>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-sm text-gray-400">
+        <a href="#features" class="hover:text-white transition-colors">Features</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        <a href="index.html" class="hover:text-white transition-colors" title="Korean">🇰🇷 KO</a>
+      </div>
+      <a href="#waitlist" class="text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition-colors">
+        Early Access
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-24 px-4 sm:px-6 text-center">
+    <div class="max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 text-sm text-indigo-300 bg-indigo-400/10 border border-indigo-400/20 px-4 py-2 rounded-full mb-8">
+        <span class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></span>
+        Now accepting early adopter waitlist signups
+      </div>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-black leading-tight mb-6 text-white">
+        Your Product Grows<br />
+        <span class="gradient-text">While You Sleep.</span>
+      </h1>
+      <p class="text-xl sm:text-2xl text-gray-300 mb-4 leading-relaxed">
+        Connect your GitHub repo and an AI agent<br class="hidden sm:block" />
+        automatically creates daily PRs that ship real value.
+      </p>
+      <p class="text-base text-gray-500 mb-10">
+        Autonomous product development agent for indie hackers and solo developers.
+      </p>
+      <form id="waitlist-form" class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input type="email" name="email" required placeholder="your@email.com"
+          class="flex-1 px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+        <button type="submit"
+          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors whitespace-nowrap">
+          Join Waitlist →
+        </button>
+      </form>
+      <div id="hero-success" class="waitlist-success hidden mt-4 p-3 bg-green-900/40 border border-green-700 rounded-xl text-green-400 text-sm max-w-md mx-auto">
+        🎉 You're in! We'll notify you first when the beta launches.
+      </div>
+      <p class="text-sm text-gray-600 mt-3">
+        First 50 early adopters get 3 months of Pro for free · No credit card required
+      </p>
+
+      <!-- Stats -->
+      <div class="flex flex-wrap justify-center gap-8 mt-16 text-center">
+        <div>
+          <div class="text-3xl font-bold text-white">1 PR/day</div>
+          <div class="text-sm text-gray-500 mt-1">Consistent product growth</div>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-800"></div>
+        <div>
+          <div class="text-3xl font-bold text-white">$29/mo</div>
+          <div class="text-sm text-gray-500 mt-1">1/17th the price of Devin</div>
+        </div>
+        <div class="hidden sm:block w-px bg-gray-800"></div>
+        <div>
+          <div class="text-3xl font-bold text-white">5 min</div>
+          <div class="text-sm text-gray-500 mt-1">From setup to first PR</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Ship like a team, even as a solo dev
+        </h2>
+        <p class="text-lg text-gray-400">
+          ShipCrew is your AI dev crew. It shows up every day and builds your product.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-indigo-500/10 text-2xl mb-4">🚀</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Fully Autonomous Development</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            From market research to code, it handles everything. The agent autonomously runs the full loop: competitive analysis, feature planning, code writing, and PR creation. No need to tell it what to build.
+          </p>
+        </div>
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-green-500/10 text-2xl mb-4">📅</div>
+          <h3 class="text-lg font-semibold text-white mb-2">1 PR Every Day, Steady Growth</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Runs every morning and submits one small, complete change as a PR. Not massive refactors, but daily reviewable improvements. You always decide whether to merge.
+          </p>
+        </div>
+        <div class="card-hover bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="feature-icon bg-purple-500/10 text-2xl mb-4">📋</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Transparent Decision Log</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Every decision the agent makes is recorded in DECISIONS.md. You can read what it chose and why. It's not a black box. Trust, but verify.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-24 px-4 sm:px-6 bg-gray-900/50">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Get started in 3 steps</h2>
+        <p class="text-lg text-gray-400">No complex setup. Get your first PR in under 5 minutes.</p>
+      </div>
+      <div class="space-y-6">
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">1</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">Connect Your GitHub Repo</h3>
+            <p class="text-gray-400 text-sm">Install the GitHub App and select the repo you want to improve. We only request minimal read/write permissions.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">2</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">Agent Runs Autonomously Every Day</h3>
+            <p class="text-gray-400 text-sm">Every morning, the agent analyzes your codebase, checks the backlog, and picks the highest-value task to implement.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 items-start bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white text-sm">3</div>
+          <div>
+            <h3 class="font-semibold text-white mb-1">Review and Merge the PR</h3>
+            <p class="text-gray-400 text-sm">Wake up to a ready PR. Review the changes, read the reasoning, and decide whether to merge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">1/17th the price of Devin</h2>
+        <p class="text-lg text-gray-400">Affordable pricing that solo developers can actually use.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="text-sm font-medium text-gray-400 mb-1">Free</div>
+          <div class="text-4xl font-bold text-white mb-1">$0</div>
+          <div class="text-sm text-gray-500 mb-6">/mo · Always free</div>
+          <ul class="space-y-3 text-sm text-gray-400 mb-8">
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 1 public repo</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Runs twice a week</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Community support</li>
+            <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> Slack notifications</li>
+            <li class="flex items-center gap-2"><span class="text-gray-600">✗</span> Private repos</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors text-sm font-medium">
+            Start for Free
+          </a>
+        </div>
+        <div class="bg-indigo-600 border border-indigo-500 rounded-2xl p-6 relative ring-2 ring-indigo-400 ring-offset-2 ring-offset-gray-950">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="bg-indigo-400 text-indigo-950 text-xs font-bold px-3 py-1 rounded-full">Recommended</span>
+          </div>
+          <div class="text-sm font-medium text-indigo-200 mb-1">Pro</div>
+          <div class="text-4xl font-bold text-white mb-1">$29</div>
+          <div class="text-sm text-indigo-300 mb-6">/mo · 20% off with annual billing</div>
+          <ul class="space-y-3 text-sm text-indigo-100 mb-8">
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> 5 private repos</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> Runs daily</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> Email run reports</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> Slack notifications</li>
+            <li class="flex items-center gap-2"><span class="text-indigo-200">✓</span> Priority support</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 transition-colors text-sm font-bold">
+            Get Pro
+          </a>
+        </div>
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6">
+          <div class="text-sm font-medium text-gray-400 mb-1">Team</div>
+          <div class="text-4xl font-bold text-white mb-1">$79</div>
+          <div class="text-sm text-gray-500 mb-6">/mo · Up to 5 members</div>
+          <ul class="space-y-3 text-sm text-gray-400 mb-8">
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> 10 private repos</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Daily + on-demand runs</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Team dashboard</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Slack + Email alerts</li>
+            <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Dedicated support</li>
+          </ul>
+          <a href="#waitlist" class="block text-center py-3 rounded-xl border border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white transition-colors text-sm font-medium">
+            Start with Team
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-24 px-4 sm:px-6 bg-gray-950">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+      </div>
+      <div class="space-y-4">
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            Do I have to merge every PR the agent creates?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            No. Every PR is a suggestion. You review and decide whether to merge. The agent proposes; you always have the final say.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            Is my code safe?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            The agent connects via a GitHub App and only requests minimum necessary permissions. Your code is deleted immediately after the task is complete and is never stored.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            What permissions does the GitHub App request?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            Only the minimum permissions needed to create PRs: <strong class="text-gray-200">Code read/write</strong> (for creating PR branches), <strong class="text-gray-200">Pull Request write</strong>, and <strong class="text-gray-200">Metadata read</strong>. It does not access GitHub Secrets, Actions workflows, billing info, or org member settings. You can revoke app permissions at any time from GitHub Settings.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            Is my code used to train AI models?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            No. Under our Anthropic Claude API agreement, your code is not used for AI training. Code is deleted immediately after PR creation, and ShipCrew does not retain your source code.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            What data do you store?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <div class="text-gray-400 text-sm mt-3 leading-relaxed">
+            <p class="mb-2"><span class="text-green-400 font-medium">We store:</span> Account email, generated PR links/titles/dates, agent run logs (auto-deleted after 90 days).</p>
+            <p><span class="text-red-400 font-medium">We do NOT store:</span> Source code files, raw GitHub tokens, environment variables or secrets, full commit history.</p>
+          </div>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            What languages/frameworks are supported?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            Currently prioritizing Python, JavaScript/TypeScript, and React projects. Language support is continuously expanding.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            How is this different from Devin or Copilot?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            Copilot specializes in code autocomplete. Devin executes tasks you assign. ShipCrew is the only fully autonomous product development agent that decides what to build on its own. And it costs 1/17th the price of Devin.
+          </p>
+        </details>
+        <details class="group bg-gray-900 border border-gray-800 rounded-2xl p-5 cursor-pointer">
+          <summary class="font-medium text-white flex items-center justify-between list-none">
+            When does it launch?
+            <span class="text-gray-500 group-open:rotate-180 transition-transform text-lg">▾</span>
+          </summary>
+          <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+            We're currently building the MVP. Join the waitlist and we'll notify you first when the beta launches. The first 50 early adopters get 3 months of Pro for free.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section id="waitlist" class="py-24 px-4 sm:px-6 bg-gradient-to-b from-gray-950 to-indigo-950/30">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Your product starts growing tonight
+      </h2>
+      <p class="text-gray-400 mb-8">Be the first to try it. First 50 early adopters get 3 months of Pro for free.</p>
+      <form id="footer-waitlist-form" class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+        <input id="final-email" type="email" name="email" required placeholder="your@email.com"
+          class="flex-1 px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+        <button type="submit"
+          class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl transition-colors whitespace-nowrap">
+          Get Launch Alerts →
+        </button>
+      </form>
+      <p class="text-sm text-gray-600 mt-3">No spam. Unsubscribe anytime.</p>
+      <div id="footer-success" class="waitlist-success hidden mt-6 p-4 bg-green-900/40 border border-green-700 rounded-xl text-green-400 text-sm">
+        🎉 You're in! We'll notify you first when the beta launches.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 py-10 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🚢</span>
+        <span class="font-medium text-gray-400">ShipCrew</span>
+        <span>· Your product grows while you sleep</span>
+      </div>
+      <div class="flex gap-4">
+        <a href="https://github.com/LSJJOON/self-improving-agent" target="_blank" class="hover:text-gray-300 transition-colors">GitHub</a>
+        <a href="mailto:hello@shipcrew.dev" class="hover:text-gray-300 transition-colors">Contact</a>
+        <a href="index.html" class="hover:text-gray-300 transition-colors">🇰🇷 Korean</a>
+        <span>© 2026 ShipCrew</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var FORMSPREE_ID = "__YOUR_FORM_ID__";
+    var FORMSPREE_URL = "https://formspree.io/f/" + FORMSPREE_ID;
+
+    async function submitToFormspree(form, successId) {
+      var input = form.querySelector('input[type="email"]');
+      var btn = form.querySelector('button[type="submit"]');
+      var email = input.value.trim();
+      if (!email || !email.includes("@")) {
+        input.classList.add("border-red-500");
+        input.focus();
+        setTimeout(function(){input.classList.remove("border-red-500");},2000);
+        return;
+      }
+      var orig = btn.textContent;
+      btn.textContent = "Submitting...";
+      btn.disabled = true;
+      btn.classList.add("opacity-70","cursor-not-allowed");
+      try {
+        var res = await fetch(FORMSPREE_URL, {
+          method:"POST",
+          headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body:JSON.stringify({email:email,_subject:"ShipCrew Early Access Signup",source:form.id==="waitlist-form"?"hero_en":"footer_cta_en",lang:"en"})
+        });
+        if (res.ok) {
+          input.value="";
+          document.querySelectorAll(".waitlist-success").forEach(function(el){el.classList.remove("hidden");});
+          if (typeof gtag === "function") {
+            gtag("event", "waitlist_signup", {
+              event_category: "conversion",
+              event_label: form.id === "waitlist-form" ? "hero_en" : "footer_cta_en"
+            });
+          }
+        } else { throw new Error("fail"); }
+      } catch(e) {
+        alert("Something went wrong. Please try again shortly.");
+      } finally {
+        btn.textContent=orig;
+        btn.disabled=false;
+        btn.classList.remove("opacity-70","cursor-not-allowed");
+      }
+    }
+    document.getElementById("waitlist-form").addEventListener("submit",function(e){e.preventDefault();submitToFormspree(this,"hero-success");});
+    document.getElementById("footer-waitlist-form").addEventListener("submit",function(e){e.preventDefault();submitToFormspree(this,"footer-success");});
+  </script>
+</body>
+</html>
