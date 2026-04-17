@@ -306,3 +306,30 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - GA4 전환 목표(Goal) 설정 가이드 — waitlist_signup 이벤트를 전환 목표로 등록하는 방법 안내 문서 작성 [2026-04-14]
 - UTM 파라미터 기반 유입 채널 추적 — IndieHackers/ProductHunt/Twitter 등 채널별 waitlist 전환율 비교 가능하게 [2026-04-14]
 - 랜딩 페이지 A/B 테스트 프레임워크 — Hero 카피·CTA 버튼 색상 등 전환율 실험을 위한 기초 인프라 구축 [2026-04-14]
+
+## 2026-04-17 (에이전트 자동 실행)
+
+### 영문 랜딩 페이지 추가 — IndieHackers/ProductHunt 영어권 사용자 대응
+
+**작업**: `frontend/en.html` 신규 생성 — 기존 한국어 랜딩 페이지(`index.html`)의 완전한 영문 번역 버전. 동시에 `index.html`에 언어 스위처(한/영) 및 hreflang 태그 추가.
+
+**핵심 결정**:
+- **독립 HTML 파일 방식**: 한 페이지에서 JS로 언어 전환하는 방식 대신 별도 파일(`en.html`)로 분리 — SEO 친화적이고 각 언어별 독립적인 OG/Twitter 메타태그 설정 가능
+- **hreflang 태그 양방향 설정**: `index.html`에 `hreflang="ko"` + `hreflang="en"`, `en.html`에 동일 태그 — Google이 언어별 페이지를 정확히 식별하여 각 사용자에게 적합한 버전 노출
+- **네비게이션 언어 스위처**: 네비 메뉴와 푸터에 국기 이모지 링크(🇺🇸 EN / 🇰🇷 KO) 추가 — 사용자가 직관적으로 언어 전환 가능
+- **GA4 이벤트 구분**: 영문 페이지 waitlist 이벤트에 `lang: "en"`, `source: "hero_en"/"footer_cta_en"` 추가 — 한/영 채널별 전환율 비교 가능
+- **카피 현지화**: 직역이 아닌 영어권 인디 해커 문화에 맞는 자연스러운 표현 사용 ("Ship like a team, even as a solo dev", "Trust, but verify" 등)
+
+**이유**:
+- ShipCrew의 주요 얼리 어독터 모집 채널(IndieHackers, ProductHunt, Twitter/X)은 모두 영어권 플랫폼
+- 한국어만 있는 랜딩 페이지로는 영어권 사용자의 waitlist 등록을 기대할 수 없음
+- SEO 관점에서 hreflang 태그는 다국어 사이트의 필수 요소 — Google이 언어별 페이지를 정확히 인식
+- 04-10 작업으로 OG/Twitter 메타태그, 04-11에 sitemap/robots.txt, 04-14에 GA4가 모두 완성된 상태 — 영문 페이지 추가로 글로벌 트래픽 유입 기반 완성
+- 별도 파일로 분리하여 변경 범위가 작고 회귀 위험 없음
+
+**변경 사항**: `frontend/en.html` 신규 생성, `frontend/index.html` (hreflang + 언어 스위처), `BACKLOG.md` (영문 페이지 항목 완료 + 신규 3개), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- sitemap.xml에 영문 페이지 URL 추가 — /en 경로를 sitemap에 등록하여 검색엔진 색인 가속화 [2026-04-17]
+- 영문 랜딩 페이지 OG 메타태그 영어 버전 검증 — SNS 공유 시 영어 카드 미리보기 정상 노출 확인 [2026-04-17]
+- IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17]
