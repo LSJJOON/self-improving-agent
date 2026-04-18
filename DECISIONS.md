@@ -333,3 +333,30 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - sitemap.xml에 영문 페이지 URL 추가 — /en 경로를 sitemap에 등록하여 검색엔진 색인 가속화 [2026-04-17]
 - 영문 랜딩 페이지 OG 메타태그 영어 버전 검증 — SNS 공유 시 영어 카드 미리보기 정상 노출 확인 [2026-04-17]
 - IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17]
+
+## 2026-04-18 (에이전트 자동 실행)
+
+### sitemap.xml에 영문 랜딩 페이지 URL + hreflang 추가 — 영문 페이지 검색 색인 가속화
+
+**작업**: `frontend/sitemap.xml`을 확장하여 (1) 2026-04-17 신규 추가된 `frontend/en.html` 영문 랜딩 페이지 URL을 등록하고, (2) Google 권장 다국어 sitemap 형식(`xhtml:link` with `hreflang`)을 적용하여 한/영 대체 관계를 명시. `lastmod` 날짜도 최신(2026-04-18)으로 갱신.
+
+**핵심 결정**:
+- **URL 2개 등록**: `https://shipcrew.dev/` (ko, priority 1.0) + `https://shipcrew.dev/en.html` (en, priority 0.9) — 한국어를 기본(메인 시장)으로, 영문을 2순위로 두되 둘 다 색인 대상
+- **xhtml:link hreflang 적용**: 각 `<url>` 블록에 `ko` / `en` / `x-default` 세 개의 alternate 링크 삽입 — Google이 사용자 언어에 맞는 버전을 자동 서빙
+- **x-default는 한국어 페이지**: 알 수 없는 언어 사용자에게는 기본 한국어 페이지 노출 (주요 타깃 시장이 한국/아시아)
+- **파일 경로 선택**: `/en` 깔끔한 URL 대신 실제 파일 경로 `/en.html` 사용 — Vercel rewrite 추가 작업 없이 즉시 동작. `/en` 매핑은 후속 백로그로 분리.
+- **`urlset`에 xhtml 네임스페이스 선언**: `xmlns:xhtml="http://www.w3.org/1999/xhtml"` 추가 — Google Search Console이 alternate 링크를 올바르게 파싱하기 위한 필수 요소
+
+**이유**:
+- 2026-04-17 작업으로 영문 랜딩 페이지(`frontend/en.html`)가 추가되었지만 sitemap.xml에는 반영되지 않아 검색엔진이 해당 페이지를 발견하기 어려움 — IndieHackers/ProductHunt 런칭 전 영어권 검색 트래픽 유입을 막는 병목
+- `hreflang` 태그는 단순 URL 등록만으로는 부족한 다국어 SEO의 핵심 시그널 — Google이 한국어 검색엔 `/`를, 영어 검색엔 `/en.html`을 노출하도록 유도
+- Google Search Console에 sitemap을 재제출하면 영문 페이지 색인이 수일 내 완료되어 런칭 시점에 이미 검색 가능한 상태 확보
+- 단일 파일 수정, 회귀 위험 없음 — "작은 변경으로 큰 효과" 원칙 부합
+- 04-17 DECISIONS에서 제시한 "글로벌 트래픽 유입 기반"을 실제로 완성하는 후속 작업
+
+**변경 사항**: `frontend/sitemap.xml` (xhtml 네임스페이스 + 2개 URL + 6개 hreflang 링크로 확장), `BACKLOG.md` (완료 처리 + 신규 3개 추가), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- Vercel `/en` 깔끔한 URL 매핑 — vercel.json rewrite로 `/en` → `/en.html` 구성해 SNS·IndieHackers 공유 URL 가독성 개선 [2026-04-18]
+- Google Search Console sitemap 제출 가이드 — sitemap.xml 제출 절차·색인 상태 확인 방법 문서화 (영문 페이지 포함) [2026-04-18]
+- 랜딩 페이지 Core Web Vitals 측정·개선 — Lighthouse 90+ 목표, 폰트 preload·Tailwind CDN 최적화로 모바일 LCP 단축 [2026-04-18]
