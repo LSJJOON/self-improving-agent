@@ -333,3 +333,33 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - sitemap.xml에 영문 페이지 URL 추가 — /en 경로를 sitemap에 등록하여 검색엔진 색인 가속화 [2026-04-17]
 - 영문 랜딩 페이지 OG 메타태그 영어 버전 검증 — SNS 공유 시 영어 카드 미리보기 정상 노출 확인 [2026-04-17]
 - IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17]
+
+## 2026-04-20 (에이전트 자동 실행)
+
+### UTM 파라미터 기반 유입 채널 추적 추가 — 채널별 전환율 비교 기반 확보
+
+**작업**: `frontend/index.html` 및 `frontend/en.html` `<head>`에 UTM 파라미터 캡처 IIFE 추가. URL 쿼리스트링의 `utm_source`/`utm_medium`/`utm_campaign`/`utm_term`/`utm_content`를 읽어 `sessionStorage`에 보존하고, GA4 `user_properties`에 등록하여 모든 이벤트에 자동 첨부되도록 구성. Formspree 제출 JSON 본문과 `waitlist_signup` 전환 이벤트에도 UTM 값 병합.
+
+**핵심 결정**:
+- **sessionStorage 보존**: 첫 진입 URL에서만 UTM이 있고 다른 페이지로 이동하면 사라지는 문제를 방지. 한국어 랜딩(`/`) ↔ 영문 랜딩(`/en`) 간 전환에도 UTM이 유지됨 → 언어 스위처 사용 시 원 채널 정보 손실 없음.
+- **GA4 user_properties 등록**: 개별 이벤트에 UTM을 수동으로 붙이지 않아도 `gtag("set", "user_properties", utm)` 한 번으로 이후 모든 이벤트(page_view 포함)에 자동 첨부. UTM 파라미터 5종 모두 표준 이름을 사용해 GA4 보고서에서 자동 인식.
+- **Formspree 본문에도 포함**: GA4 외에 이메일 수신함에서도 각 waitlist 등록자의 유입 채널을 즉시 확인 가능 → 초기 얼리 어답터 대응 시 채널별 맞춤 커뮤니케이션 설계.
+- **`waitlist_signup` 이벤트에 직접 병합**: `Object.assign` 으로 기존 `event_category`·`event_label`과 UTM을 합쳐 발송. GA4 탐색 보고서에서 `event_label`(hero/footer) × `utm_source`(indiehackers/producthunt/…) 교차 분석 가능.
+- **URL 오염 없음**: 캡처 후 리다이렉트 없이 URL에 UTM을 그대로 두어 GA4의 표준 획득 채널 처리(자동 캠페인 매칭)도 정상 작동.
+- **방어적 구현**: `try/catch`로 `sessionStorage` 접근 실패(시크릿 모드·스토리지 차단)를 무시. UTM이 없는 순수 직방문에도 추가 부하 없음.
+
+**이유**:
+- 04-14 GA4 gtag.js 설치로 방문자·waitlist 전환율을 측정할 수 있게 됐으나, 어느 채널(IndieHackers/ProductHunt/Twitter/Reddit)이 가장 효율적인지 알 수 없음 → 런칭 콘텐츠별 ROI 판단 불가.
+- 곧 예정된 IndieHackers/ProductHunt 런칭 포스트 초안 작성 전에 UTM 수집 기반을 깔아야 런칭 직후부터 채널별 데이터가 쌓임. 런칭 이후 추가하면 초기 핵심 데이터가 공란으로 남음.
+- 인디 해커 가격대($29) 제품은 CAC(획득 비용)가 곧 생존선 → 어느 채널이 가장 싸게 전환되는지가 Phase 2 마케팅 의사결정의 핵심 지표.
+- 한/영 랜딩 양쪽에 동시 적용 + sessionStorage 공유로 "영문 포스트에서 유입 → 한국어 페이지로 전환" 같은 교차 플로우도 정확히 트래킹.
+- 두 파일 수정(+ 약 26줄 스크립트, 2줄 Object.assign), 외부 라이브러리 의존성 0, 회귀 위험 낮음 — "작은 변경으로 큰 효과" 원칙 부합.
+
+**변경 사항**: `frontend/index.html` (UTM 캡처 스크립트 + fetch 본문 Object.assign + gtag 이벤트 Object.assign), `frontend/en.html` (동일 패턴 영문 주석 버전), `BACKLOG.md` (UTM 항목 완료 처리 + 신규 3개), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- 환영 이메일 템플릿 카피 작성 — waitlist 등록 직후 보낼 환영/다음 단계 안내 이메일 본문 초안 (제품 첫인상 강화) [2026-04-20]
+- 웹사이트 내 UTM 링크 생성기 문서 — 채널별 표준 UTM 네이밍 규칙(utm_source 값 리스트) 가이드 작성 [2026-04-20]
+- "현재 N명 대기 중" 실시간 카운터 섹션 — Formspree 대시보드 또는 파일 기반 카운트를 히어로 섹션에 노출 (사회적 증거 강화) [2026-04-20]
+
+**수동 작업 이슈**: GA4 속성에서 UTM 파라미터 수신 확인 및 "채널별 전환율" 탐색 보고서 생성 가이드 (별도 이슈로 발급 예정)
