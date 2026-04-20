@@ -80,6 +80,29 @@
     .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15); }
     .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
   </style>
+  <!-- UTM parameter capture — collects utm_* from URL, persists in sessionStorage, attaches to GA4 user_properties and waitlist form submission -->
+  <script>
+    (function () {
+      var UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+      var qs = new URLSearchParams(window.location.search);
+      var stored = {};
+      try { stored = JSON.parse(sessionStorage.getItem("shipcrew_utm") || "{}"); } catch (e) { stored = {}; }
+      var utm = {};
+      UTM_KEYS.forEach(function (k) {
+        var v = qs.get(k);
+        if (v) { utm[k] = v; }
+        else if (stored[k]) { utm[k] = stored[k]; }
+      });
+      if (Object.keys(utm).length > 0) {
+        try { sessionStorage.setItem("shipcrew_utm", JSON.stringify(utm)); } catch (e) {}
+      }
+      window.__shipcrewUtm = utm;
+      if (typeof window.gtag === "function" && Object.keys(utm).length > 0) {
+        window.gtag("set", "user_properties", utm);
+      }
+    })();
+  </script>
+
 </head>
 <body class="bg-gray-950 text-gray-100 antialiased">
 
@@ -432,16 +455,16 @@
         var res = await fetch(FORMSPREE_URL, {
           method:"POST",
           headers:{"Content-Type":"application/json","Accept":"application/json"},
-          body:JSON.stringify({email:email,_subject:"ShipCrew Early Access Signup",source:form.id==="waitlist-form"?"hero_en":"footer_cta_en",lang:"en"})
+          body:JSON.stringify(Object.assign({email:email,_subject:"ShipCrew Early Access Signup",source:form.id==="waitlist-form"?"hero_en":"footer_cta_en",lang:"en"}, (window.__shipcrewUtm||{})))
         });
         if (res.ok) {
           input.value="";
           document.querySelectorAll(".waitlist-success").forEach(function(el){el.classList.remove("hidden");});
           if (typeof gtag === "function") {
-            gtag("event", "waitlist_signup", {
+            gtag("event", "waitlist_signup", Object.assign({
               event_category: "conversion",
               event_label: form.id === "waitlist-form" ? "hero_en" : "footer_cta_en"
-            });
+            }, (window.__shipcrewUtm || {})));
           }
         } else { throw new Error("fail"); }
       } catch(e) {
