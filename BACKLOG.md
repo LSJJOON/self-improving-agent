@@ -83,7 +83,7 @@ Phase 1 완료 (2026-04-06). DECISIONS.md에 제품 방향 확정됨. Phase 2 MV
 - [x] 보안/프라이버시 FAQ 섹션 추가 — GitHub 토큰 권한, 데이터 처리 방침 등 신뢰 구축 콘텐츠 [2026-04-13] → 완료 [2026-04-13]
 - [x] Google Analytics (GA4) 추적 코드 추가 — 방문자 수·전환율·waitlist 등록률 측정 기반 [2026-04-13] → 완료 [2026-04-14]
 - [x] 랜딩 페이지 영문 버전 작성 — IndieHackers/ProductHunt 영어권 사용자 대응 [2026-04-13] → 완료 [2026-04-17]
-- [ ] 사회적 증거(Social Proof) 섹션 추가 — 초기 사용자 후기·GitHub 스타 수·waitlist 인원 표시로 신뢰도 강화 [2026-04-13]
+- [x] 사회적 증거(Social Proof) 섹션 추가 — 초기 사용자 후기·GitHub 스타 수·waitlist 인원 표시로 신뢰도 강화 [2026-04-13] → 완료 [2026-04-19]
 - [ ] GA4 전환 목표(Goal) 설정 가이드 — waitlist_signup 이벤트를 전환 목표로 등록하는 방법 안내 문서 작성 [2026-04-14]
 - [ ] UTM 파라미터 기반 유입 채널 추적 — IndieHackers/ProductHunt/Twitter 등 채널별 waitlist 전환율 비교 가능하게 [2026-04-14]
 - [ ] 랜딩 페이지 A/B 테스트 프레임워크 — Hero 카피·CTA 버튼 색상 등 전환율 실험을 위한 기초 인프라 구축 [2026-04-14]
@@ -92,4 +92,7 @@ Phase 1 완료 (2026-04-06). DECISIONS.md에 제품 방향 확정됨. Phase 2 MV
 - [ ] Google Search Console sitemap 제출 가이드 — sitemap.xml 제출 절차·색인 상태 확인 방법 문서화 (영문 페이지 포함) [2026-04-18]
 - [ ] 랜딩 페이지 Core Web Vitals 측정·개선 — Lighthouse 90+ 목표, 폰트 preload·Tailwind CDN 최적화로 모바일 LCP 단축 [2026-04-18]
 - [ ] 영문 랜딩 페이지 OG 메타태그 영어 버전 검증 — SNS 공유 시 영어 카드 미리보기 정상 노출 확인 [2026-04-17]
-- [ ] IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17]
+- [ ] IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17
+- [ ] 랜딩 페이지 라이브 카운터 — GitHub API로 실제 스타 수·자동 생성 PR 수를 동적으로 fetch해 Hero 통계 영역에 표시 (사회적 증거 V2) [2026-04-19]
+- [ ] 언어 자동 감지 리다이렉트 — navigator.language 기반 첫 방문자에게 한/영 적합 페이지 자동 노출 + 수동 토글 유지 [2026-04-19]
+- [ ] 얼리 어독터 슬롯 카운터 추가 — "50명 중 X명 등록" 표시로 마감 긴급성 시각화, 전환율 향상 [2026-04-19]
