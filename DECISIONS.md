@@ -417,3 +417,35 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - "현재 N명 대기 중" 실시간 카운터 섹션 — Formspree 대시보드 또는 파일 기반 카운트를 히어로 섹션에 노출 (사회적 증거 강화) [2026-04-20]
 
 **수동 작업 이슈**: GA4 속성에서 UTM 파라미터 수신 확인 및 "채널별 전환율" 탐색 보고서 생성 가이드 (별도 이슈로 발급 예정)
+
+## 2026-04-21 (에이전트 자동 실행)
+
+### IndieHackers·ProductHunt·Twitter 런칭 포스트 초안 작성 — 트래픽 유입 기반 완성
+
+**작업**: `docs/market-research/launch-posts.md` 신규 생성 — ShipCrew 런칭 채널 3곳(IndieHackers, ProductHunt, Twitter/X)에 게시할 포스트 초안 영문/한국어 버전 + 게시 전 체크리스트 + 게시 후 대응 가이드.
+
+**핵심 결정**:
+
+- **IndieHackers 포스트**: 제목 3종 후보 중 "I built an agent that ships a PR to my SaaS every morning — waitlist open" 권장. 본문은 ~350 단어로 (1) 사이드 프로젝트 죽음의 패턴 공감, (2) 동작 방식 3단계, (3) Devin/Copilot 대비 차별화 3가지, (4) waitlist CTA, (5) 커뮤니티 질문 2개 유도의 5단 구조.
+- **ProductHunt 런칭 소재**: tagline 60자 이내, description 260자 이내, maker's first comment 3가지 구체적 피드백 질문 포함 — PH는 첫 24시간 댓글 engagement가 랭킹을 결정하므로 댓글 유도 설계가 핵심.
+- **Twitter/X 7-tweet 스레드**: hook → problem → solution → dogfooding → pricing → bet → CTA 구조. 트윗당 길이는 모두 280자 제약 내로 작성.
+- **한국어 버전**: F-Lab, 요즘IT, 디스콰이엇 등 국내 인디 커뮤니티용 별도 작성. 단순 번역이 아닌 국내 정서에 맞는 어투 적용.
+- **채널별 UTM 템플릿**: `utm_source/medium/campaign` 파라미터를 채널별로 표준화 — PR #32(UTM 추적) 머지 후 실제 URL 생성에 재활용 가능.
+- **게시 후 24시간 룰**: PH/IH는 첫 24시간 engagement가 랭킹을 거의 결정하므로 런칭 당일 다른 일정 비우기를 체크리스트에 명시.
+
+**이유**:
+
+- 04-17 작업으로 영문 랜딩 페이지 구현, 04-18 sitemap 영문 포함(PR #28), 04-19 사회적 증거 섹션(PR #30), 04-20 UTM 추적(PR #32)까지 완료되어 **랜딩 페이지의 트래픽 수용 기반은 완성**된 상태.
+- 그러나 실제 트래픽을 흘려보낼 **외부 채널 포스트**가 아직 없음 → 아무리 랜딩이 좋아도 waitlist는 0에 수렴.
+- 런칭 포스트는 실제 게시 전 여러 차례 리뷰·리라이트가 필요하므로 초안을 레포에 커밋해 공개 버전 관리하면 피드백 반영·버전 추적 용이.
+- 영문/한국어 동시 작성: ShipCrew 주 얼리 어독터 채널(IH/PH/Twitter) = 영어권이지만, Joon이 한국에서 활동하므로 국내 커뮤니티 동시 론칭이 자연스러운 확장.
+- 단일 파일(`docs/market-research/launch-posts.md`) 추가로 변경 범위 작고 회귀 위험 없음 — "작은 변경으로 큰 효과" 원칙 부합.
+- 초안 상태임을 명시하여 실제 게시 전 Hero 카피 일관성·UTM·Formspree 테스트·og-image 준비가 선행되어야 함을 체크리스트에 포함.
+
+**변경 사항**: `docs/market-research/launch-posts.md` 신규 생성, `BACKLOG.md` (런칭 포스트 항목 완료 + 신규 3개), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+
+- og-image.png 실물 디자인·업로드 — 현재 경로 참조만 있어 SNS 공유 카드 미리보기 깨짐 [2026-04-21]
+- 런칭 포스트 UTM URL 생성 및 지역·채널별 매트릭스 문서화 — PR #32 머지 후 [2026-04-21]
+- 사용 데모 GIF(30초) 제작 및 랜딩 Hero 아래 삽입 — "자는 동안 PR이 올라오는" 장면 시각화 [2026-04-21]
