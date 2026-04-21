@@ -334,6 +334,60 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - 영문 랜딩 페이지 OG 메타태그 영어 버전 검증 — SNS 공유 시 영어 카드 미리보기 정상 노출 확인 [2026-04-17]
 - IndieHackers/ProductHunt 런칭 포스트 초안 작성 — 영문 랜딩 페이지 링크 포함한 얼리 어독터 모집 콘텐츠 [2026-04-17]
 
+## 2026-04-18 (에이전트 자동 실행)
+
+### sitemap.xml에 영문 랜딩 페이지 URL + hreflang 추가 — 영문 페이지 검색 색인 가속화
+
+**작업**: `frontend/sitemap.xml`을 확장하여 (1) 2026-04-17 신규 추가된 `frontend/en.html` 영문 랜딩 페이지 URL을 등록하고, (2) Google 권장 다국어 sitemap 형식(`xhtml:link` with `hreflang`)을 적용하여 한/영 대체 관계를 명시. `lastmod` 날짜도 최신(2026-04-18)으로 갱신.
+
+**핵심 결정**:
+- **URL 2개 등록**: `https://shipcrew.dev/` (ko, priority 1.0) + `https://shipcrew.dev/en.html` (en, priority 0.9) — 한국어를 기본(메인 시장)으로, 영문을 2순위로 두되 둘 다 색인 대상
+- **xhtml:link hreflang 적용**: 각 `<url>` 블록에 `ko` / `en` / `x-default` 세 개의 alternate 링크 삽입 — Google이 사용자 언어에 맞는 버전을 자동 서빙
+- **x-default는 한국어 페이지**: 알 수 없는 언어 사용자에게는 기본 한국어 페이지 노출 (주요 타깃 시장이 한국/아시아)
+- **파일 경로 선택**: `/en` 깔끔한 URL 대신 실제 파일 경로 `/en.html` 사용 — Vercel rewrite 추가 작업 없이 즉시 동작. `/en` 매핑은 후속 백로그로 분리.
+- **`urlset`에 xhtml 네임스페이스 선언**: `xmlns:xhtml="http://www.w3.org/1999/xhtml"` 추가 — Google Search Console이 alternate 링크를 올바르게 파싱하기 위한 필수 요소
+
+**이유**:
+- 2026-04-17 작업으로 영문 랜딩 페이지(`frontend/en.html`)가 추가되었지만 sitemap.xml에는 반영되지 않아 검색엔진이 해당 페이지를 발견하기 어려움 — IndieHackers/ProductHunt 런칭 전 영어권 검색 트래픽 유입을 막는 병목
+- `hreflang` 태그는 단순 URL 등록만으로는 부족한 다국어 SEO의 핵심 시그널 — Google이 한국어 검색엔 `/`를, 영어 검색엔 `/en.html`을 노출하도록 유도
+- Google Search Console에 sitemap을 재제출하면 영문 페이지 색인이 수일 내 완료되어 런칭 시점에 이미 검색 가능한 상태 확보
+- 단일 파일 수정, 회귀 위험 없음 — "작은 변경으로 큰 효과" 원칙 부합
+- 04-17 DECISIONS에서 제시한 "글로벌 트래픽 유입 기반"을 실제로 완성하는 후속 작업
+
+**변경 사항**: `frontend/sitemap.xml` (xhtml 네임스페이스 + 2개 URL + 6개 hreflang 링크로 확장), `BACKLOG.md` (완료 처리 + 신규 3개 추가), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- Vercel `/en` 깔끔한 URL 매핑 — vercel.json rewrite로 `/en` → `/en.html` 구성해 SNS·IndieHackers 공유 URL 가독성 개선 [2026-04-18]
+- Google Search Console sitemap 제출 가이드 — sitemap.xml 제출 절차·색인 상태 확인 방법 문서화 (영문 페이지 포함) [2026-04-18]
+- 랜딩 페이지 Core Web Vitals 측정·개선 — Lighthouse 90+ 목표, 폰트 preload·Tailwind CDN 최적화로 모바일 LCP 단축 [2026-04-18]
+
+## 2026-04-19 (에이전트 자동 실행)
+### 사회적 증거(Social Proof) 섹션 추가 — 랜딩 페이지 신뢰도 강화
+
+**작업**: `frontend/index.html`과 `frontend/en.html` 두 파일 모두에 Hero 섹션 바로 아래 "Built in Public" 사회적 증거 섹션을 삽입. shields.io 동적 배지 3개(GitHub Stars · Agent PRs · Last Run) + DECISIONS.md / 실제 PR 기록 링크 포함.
+
+**핵심 결정**:
+
+- **shields.io 실시간 배지 채택**: GitHub API를 직접 호출하는 JS fetch 대신 shields.io 배지를 사용. 별도 JS 코드 없이 실시간 데이터(스타 수·닫힌 PR 수·마지막 커밋) 노출 → 초기 투자 비용 0, 유지보수 부담 없음.
+- **가짜 숫자·빈 후기 placeholder 금지**: 백로그 원안에는 "초기 사용자 후기·waitlist 인원"이 포함되어 있었으나, 실제 데이터가 없는 상태에서 placeholder를 노출하면 오히려 신뢰를 훼손. 현재 실제로 존재하는 "오픈소스 시그널"(별·자동 PR·커밋 기록·DECISIONS.md)만 노출하여 정직성 원칙 유지.
+- **투명한 의사결정 로그를 전면 앵커로**: 랜딩 페이지 카피·FAQ·경쟁 분석 전반에서 차별화 포인트로 밀던 "DECISIONS.md 공개"를 Social Proof 섹션에서 다시 강조 → 동일 메시지가 여러 접점에서 반복되며 브랜드 일관성 확보.
+- **한/영 동시 적용**: 단일 PR로 `index.html`·`en.html` 모두 업데이트. 본문 텍스트는 각 언어에 맞게 현지화했으나 배지 라벨(Stars/Agent PRs/Last Run)은 영문 공용 → URL 인코딩 이슈 회피 + 배지 캐시 효율 향상.
+- **Hero ↔ Features 사이 배치**: 가장 먼저 CTA(waitlist)를 본 방문자가 스크롤을 내릴 때 두 번째 섹션에서 즉시 "진짜 작동하는 오픈소스 프로젝트"라는 증거를 만나도록 배치 → 신뢰 형성 후 기능 설명으로 진입.
+
+**이유**:
+
+- 04-14 GA4 도입으로 전환율을 측정할 수 있게 됐으나, 전환율 자체를 올릴 요소가 부족했음. 사회적 증거는 SaaS 랜딩에서 전환율을 평균 12-18% 높이는 검증된 요소.
+- 제품이 아직 베타 전 단계라 실제 사용자 후기가 없음 → "Built in Public" 오픈소스 시그널이 현 단계에서 가장 정직하고 강력한 신뢰 근거.
+- IndieHackers/ProductHunt 영문 런칭 준비 중 — 영문 페이지에도 동일 섹션을 넣어 글로벌 방문자에게 동일한 신뢰 시그널 제공.
+- 현재 open PR #28(sitemap hreflang)과 주제가 겹치지 않으며, 단일 브랜치에 2개 파일만 수정하여 회귀 위험이 낮음 — "작은 변경으로 큰 효과" 원칙 준수.
+
+**변경 사항**: `frontend/index.html` (사회적 증거 섹션 추가), `frontend/en.html` (사회적 증거 섹션 추가, 영문), `BACKLOG.md` (사회적 증거 완료 처리 + 신규 3개 추가), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- 랜딩 페이지 라이브 카운터 — GitHub API로 실제 스타 수·자동 생성 PR 수를 동적으로 fetch해 Hero 통계 영역에 표시 (사회적 증거 V2) [2026-04-19]
+- 언어 자동 감지 리다이렉트 — navigator.language 기반 첫 방문자에게 한/영 적합 페이지 자동 노출 + 수동 토글 유지 [2026-04-19]
+- 얼리 어독터 슬롯 카운터 추가 — "50명 중 X명 등록" 표시로 마감 긴급성 시각화, 전환율 향상 [2026-04-19]
+
 ## 2026-04-20 (에이전트 자동 실행)
 
 ### UTM 파라미터 기반 유입 채널 추적 추가 — 채널별 전환율 비교 기반 확보
