@@ -97,7 +97,30 @@
       font-size: 22px;
     }
   </style>
-</head>
+    <!-- UTM 파라미터 캡처 — URL 쿼리에서 수집, sessionStorage에 보존, GA4 user_properties + waitlist 폼에 자동 첨부 -->
+    <script>
+      (function () {
+        var UTM_KEYS = ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"];
+        var qs = new URLSearchParams(window.location.search);
+        var stored = {};
+        try { stored = JSON.parse(sessionStorage.getItem("shipcrew_utm") || "{}"); } catch (e) { stored = {}; }
+        var utm = {};
+        UTM_KEYS.forEach(function (k) {
+          var v = qs.get(k);
+          if (v) { utm[k] = v; }
+          else if (stored[k]) { utm[k] = stored[k]; }
+        });
+        if (Object.keys(utm).length > 0) {
+          try { sessionStorage.setItem("shipcrew_utm", JSON.stringify(utm)); } catch (e) {}
+        }
+        window.__shipcrewUtm = utm;
+        if (typeof window.gtag === "function" && Object.keys(utm).length > 0) {
+          window.gtag("set", "user_properties", utm);
+        }
+      })();
+    </script>
+
+  </head>
 <body class="bg-gray-950 text-gray-100 antialiased">
 
   <!-- Navigation -->
@@ -182,6 +205,32 @@
           <div class="text-sm text-gray-500 mt-1">첫 PR까지 걸리는 시간</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Built in Public -->
+  <section class="border-y border-gray-800 bg-gray-900/40 py-10 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center text-xs font-semibold text-gray-500 mb-5 uppercase tracking-[0.2em]">
+        Built in Public · 100% 오픈소스
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <a href="https://github.com/LSJJOON/self-improving-agent/stargazers" target="_blank" rel="noopener" class="hover:opacity-80 transition-opacity">
+          <img src="https://img.shields.io/github/stars/LSJJOON/self-improving-agent?style=for-the-badge&logo=github&label=Stars&color=6366f1&labelColor=1f2937" alt="GitHub 스타 수" />
+        </a>
+        <a href="https://github.com/LSJJOON/self-improving-agent/pulls?q=is%3Apr" target="_blank" rel="noopener" class="hover:opacity-80 transition-opacity">
+          <img src="https://img.shields.io/github/issues-pr-closed/LSJJOON/self-improving-agent?style=for-the-badge&label=Agent%20PRs&color=22c55e&labelColor=1f2937" alt="에이전트가 생성한 PR 수" />
+        </a>
+        <a href="https://github.com/LSJJOON/self-improving-agent/commits/main" target="_blank" rel="noopener" class="hover:opacity-80 transition-opacity">
+          <img src="https://img.shields.io/github/last-commit/LSJJOON/self-improving-agent?style=for-the-badge&label=Last%20Run&color=8b5cf6&labelColor=1f2937" alt="마지막 에이전트 실행" />
+        </a>
+      </div>
+      <p class="text-center text-sm text-gray-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+        에이전트가 내리는 모든 결정은
+        <a href="https://github.com/LSJJOON/self-improving-agent/blob/main/DECISIONS.md" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 underline underline-offset-2">DECISIONS.md</a>에 공개됩니다.
+        <a href="https://github.com/LSJJOON/self-improving-agent/pulls" target="_blank" rel="noopener" class="text-indigo-400 hover:text-indigo-300 underline underline-offset-2">실제 PR 기록</a>으로
+        에이전트가 어떻게 작동하는지 직접 확인해 보세요.
+      </p>
     </div>
   </section>
 
@@ -473,14 +522,14 @@
         if (!email || !email.includes("@")) { input.classList.add("border-red-500"); input.focus(); setTimeout(function(){input.classList.remove("border-red-500");},2000); return; }
         var orig = btn.textContent; btn.textContent = "등록 중..."; btn.disabled = true; btn.classList.add("opacity-70","cursor-not-allowed");
         try {
-          var res = await fetch(FORMSPREE_URL, { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify({email:email,_subject:"ShipCrew 얼리 액세스 신청",source:form.id==="waitlist-form"?"hero":"footer-cta"}) });
+          var res = await fetch(FORMSPREE_URL, { method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify(Object.assign({email:email,_subject:"ShipCrew 얼리 액세스 신청",source:form.id==="waitlist-form"?"hero":"footer-cta"}, (window.__shipcrewUtm||{}))) });
           if (res.ok) { input.value=""; document.querySelectorAll(".waitlist-success").forEach(function(el){el.classList.remove("hidden");});
           // GA4 전환 이벤트 추적
           if (typeof gtag === "function") {
-            gtag("event", "waitlist_signup", {
+            gtag("event", "waitlist_signup", Object.assign({
               event_category: "conversion",
               event_label: form.id === "waitlist-form" ? "hero" : "footer_cta"
-            });
+            }, (window.__shipcrewUtm || {})));
           } } else { throw new Error("fail"); }
         } catch(e) { alert("등록 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."); }
         finally { btn.textContent=orig; btn.disabled=false; btn.classList.remove("opacity-70","cursor-not-allowed"); }
