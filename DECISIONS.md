@@ -449,3 +449,46 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - og-image.png 실물 디자인·업로드 — 현재 경로 참조만 있어 SNS 공유 카드 미리보기 깨짐 [2026-04-21]
 - 런칭 포스트 UTM URL 생성 및 지역·채널별 매트릭스 문서화 — PR #32 머지 후 [2026-04-21]
 - 사용 데모 GIF(30초) 제작 및 랜딩 Hero 아래 삽입 — "자는 동안 PR이 올라오는" 장면 시각화 [2026-04-21]
+
+
+---
+
+## 2026-04-22 — Phase 2 코어 우선 전환 & MVP 최소 기능 명세서 확정
+
+**결정**: 오늘자로 Phase 2 daily 작업의 기본 축을 마케팅/랜딩 개선에서 **코어 제품(MVP) 구현**으로 전환한다. 마케팅은 병행하되 주력은 F-01~F-06(온보딩·레포 분석·PR 생성·이메일·대시보드·결제) 구현이다.
+
+**배경**: 지난 5일(04-17~04-21) daily 작업이 모두 랜딩/카피/분석 영역에 집중되었고, 제품 실체가 없는 상태에서 waitlist만 누적되고 있었다. 얼리 어독터 10명 클로즈드 베타를 8주 안에 돌리려면 코어 구현 착수가 더 이상 미뤄질 수 없다.
+
+**MVP 기능 범위**(`docs/technical/mvp-spec.md` 참조):
+
+- P0: GitHub App+OAuth, 레포 분석(1회/일), PR 자동 생성(안전장치 포함), 이메일 리포트, 결과 대시보드 3뷰, Stripe 결제(Free→Pro)
+- Go/No-Go: 실제 레포 7일 연속 무중단 + 이메일 오픈율 ≥50% + 결제 E2E 10회 + 보안 체크 + Playwright 통과 + 법무 페이지 공개
+- 북극성: **주간 활성 에이전트 수**(주 1회 이상 PR 머지 레포)
+
+**8주 로드맵**:
+
+1. Week 1: F-01(Next.js + Supabase Auth + GitHub App)
+2. Week 2: F-02(Celery + Claude API, 샘플 레포 2개 E2E)
+3. Week 3: F-03(PR 생성 + 안전장치)
+4. Week 4: F-04 + F-05(이메일 + 대시보드 2뷰)
+5. Week 5: F-06(Stripe 결제)
+6. Week 6: 보안·E2E·성능 테스트, Go/No-Go
+7. Week 7: 얼리 어독터 10명 클로즈드 베타
+8. Week 8: 공개 런칭(IndieHackers/ProductHunt)
+
+**오픈 이슈**(mvp-spec.md §9 — 후속 DECISIONS 항목으로 분리 기록 예정):
+
+1. 언어 지원 확장 시점(Go/Rust Best-effort 여부)
+2. 500MB 이상 대형 레포 분석 전략
+3. 에이전트가 고장낸 PR의 7일 자동 close 정책
+4. Free 플랜에서 원격 서버 코드 캐시 범위
+5. 이메일 공급자 선택(Resend vs SendGrid)
+6. Stripe 한국 세금/인보이스 대응
+
+**변경 사항**: `docs/technical/mvp-spec.md` 신규(본 문서 기반), `BACKLOG.md`(MVP 명세서 항목 완료 + Week 1~3 신규 3개), `DECISIONS.md`(본 항목)
+
+**다음 작업**(BACKLOG 신규 등록):
+
+- Next.js 14 + Supabase Auth 기반 GitHub App 온보딩 플로우 구현 (F-01)
+- 레포 분석 파이프라인(Celery + Claude API) 프로토타입 (F-02)
+- PR 생성 안전장치 설계 문서 — LOC/파일 상한, 스테일 PR 자동 close, 자가 수정 1회 한계 (F-03)
