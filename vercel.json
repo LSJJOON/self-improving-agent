@@ -3,6 +3,7 @@
   "buildCommand": null,
   "outputDirectory": "frontend",
   "rewrites": [
+    { "source": "/en", "destination": "/en.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
