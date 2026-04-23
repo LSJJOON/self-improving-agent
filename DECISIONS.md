@@ -449,3 +449,31 @@ Next.js 풀 스택 앱 이전에 정적 HTML로 먼저 배포하면 즉각적인
 - og-image.png 실물 디자인·업로드 — 현재 경로 참조만 있어 SNS 공유 카드 미리보기 깨짐 [2026-04-21]
 - 런칭 포스트 UTM URL 생성 및 지역·채널별 매트릭스 문서화 — PR #32 머지 후 [2026-04-21]
 - 사용 데모 GIF(30초) 제작 및 랜딩 Hero 아래 삽입 — "자는 동안 PR이 올라오는" 장면 시각화 [2026-04-21]
+
+## 2026-04-23 (에이전트 자동 실행)
+
+### Vercel `/en` 깔끔한 URL rewrite 도입 — 다국어 라우팅 일관성 확보
+
+**작업**: `vercel.json`에 `/en` → `/en.html` 명시적 rewrite 추가, `frontend/sitemap.xml`의 영문 URL을 `/en.html` → `/en`으로 정리하고 `lastmod`를 2026-04-23으로 갱신, `frontend/index.html`의 언어 스위처 링크 2곳(`en.html` → `/en`)을 교체하여 메타태그·sitemap·내부 링크·사용자 공유 URL의 `/en` 표기를 완전 일치시킴.
+
+**핵심 결정**:
+- **명시적 rewrite 규칙 추가**: 기존 catch-all `/(.*)` → `/index.html` 앞에 `/en` → `/en.html` 규칙을 삽입. Vercel은 rewrite를 배열 순서대로 평가하므로 `/en` 요청이 catch-all에 먹히지 않고 영문 페이지로 정확히 라우팅됨.
+- **`cleanUrls` 미사용 — 명시적 규칙 우선**: `vercel.json`의 `cleanUrls: true`로도 동일 효과를 얻을 수 있으나, 정적 에셋(sitemap.xml·robots.txt·og-image.png)에 대한 부수 효과를 피하기 위해 영문 페이지 단일 경로만 명시적으로 처리.
+- **sitemap과 hreflang의 정합성 복구**: `en.html`은 이미 canonical/hreflang/og:url/JSON-LD에서 모두 `/en`을 canonical로 선언하고 있었지만, sitemap.xml은 여전히 `/en.html`을 가리켜 SEO 시그널이 충돌. 이번 PR로 sitemap·hreflang·canonical 3자가 `/en` 하나로 수렴.
+- **언어 스위처 링크만 교체, 나머지 네비/본문 링크는 유지**: `index.html` 언어 전환 2곳(네비 🇺🇸 EN, 푸터 🇺🇸 English)만 `/en`으로 바꿔 변경 범위를 최소화. `en.html`의 한국어 링크는 기존 `index.html`(서버가 `/`로 안정 서빙) 유지.
+- **Cache busting**: sitemap.xml `lastmod`를 2026-04-23으로 갱신해 Google Search Console이 재크롤링 후 `/en` URL을 즉시 반영하도록 유도.
+
+**이유**:
+- 2026-04-17 영문 랜딩 페이지 추가 이후 `en.html` 내부 메타태그는 일관되게 `/en`을 canonical로 선언했으나, Vercel 라우팅이 뒷받침되지 않아 실제 `/en` 접속은 catch-all에 의해 한국어 홈으로 리다이렉트되는 상태(즉 SEO 선언과 실제 동작이 불일치). IndieHackers·ProductHunt·Twitter 런칭 포스트에서 `shipcrew.dev/en`을 공유하는 순간 404 또는 잘못된 페이지로 가던 시한폭탄이었음.
+- 2026-04-21 `docs/market-research/launch-posts.md` 초안이 확정되어 런칭 발사대에 올라간 지금, 공유 URL 가독성(`/en` vs `/en.html`)은 포스트 클릭률에 직결. 영어권 인디 해커 문화는 기술 스택이 드러나는 `.html` 확장자를 아마추어 티 나는 신호로 받아들이는 경향이 있음.
+- PR #32(UTM 추적)과 PR #34(런칭 포스트)가 머지되고 나면 `shipcrew.dev/en?utm_source=indiehackers` 같은 URL이 실제로 공유됨. 그 시점 전에 라우팅이 확정되어 있어야 UTM 추적 값도 정확히 수집됨(리다이렉트 시 Referer/쿼리 손실 위험 제거).
+- 변경 범위는 3개 파일(vercel.json, sitemap.xml, index.html), 각 파일 수정 라인 수 10줄 미만 → "작은 변경으로 큰 효과" 원칙 준수. 회귀 위험은 낮으나 배포 후 `/`·`/en`·`/en.html`·`/sitemap.xml`·`/robots.txt`·`/og-image.png` 6개 경로를 수동 점검하는 이슈를 발급해 안전 마진 확보.
+
+**변경 사항**: `vercel.json` (rewrite 1건 추가), `frontend/sitemap.xml` (URL 2곳 + hreflang 4곳 정리, lastmod 갱신), `frontend/index.html` (언어 스위처 `<a href>` 2곳), `BACKLOG.md` (완료 처리 + 신규 3건), `DECISIONS.md` (본 항목)
+
+**에이전트 자동 추가 백로그**:
+- og-image.png 실제 PNG 파일 생성·커밋 — SNS 공유 카드 미리보기 정상 노출 완성 [2026-04-23]
+- 언어 스위처 활성 상태 시각 표시 — 현재 페이지 언어 버튼에 활성 스타일 추가 [2026-04-23]
+- Vercel 프리뷰 URL 체크리스트 문서 — PR별 deploy preview 검증 항목 리스트 [2026-04-23]
+
+**수동 작업 이슈**: Vercel 머지 후 `/en` rewrite · sitemap.xml · 언어 스위처 링크 실제 동작 확인 (별도 이슈 발급).
