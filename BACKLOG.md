@@ -103,3 +103,7 @@ Phase 1 완료 (2026-04-06). DECISIONS.md에 제품 방향 확정됨. Phase 2 MV
 - [ ] og-image.png 실물 디자인·업로드 — 현재 `frontend/og-image.png` 경로 참조만 있어 SNS 공유 카드 미리보기가 깨짐 [2026-04-21]
 - [ ] 런칭 포스트 UTM URL 생성 및 지역·채널별 매트릭스 문서화 — PR #32(UTM 추적) 머지 후 실제 공유 URL 확정 [2026-04-21]
 - [ ] 사용 데모 GIF(30초) 제작 및 랜딩 페이지 Hero 아래 삽입 — "자는 동안 PR이 올라오는" 장면 시각화 [2026-04-21]
+- [x] Phase 2 Week 1 오픈 이슈 6건 의사결정 지원 문서 작성 — `docs/technical/phase2-open-issues-analysis.md` 로 선택지·트레이드오프·권장안 정리, 이슈 #37 해소 지원 [2026-04-24] → 완료 [2026-04-24]
+- [ ] `docs/technical/large-repo-strategy.md` 작성 — 500MB+ 대형 레포 분석 전략(샘플링 규칙, 토큰 예산, UX) 상세 설계, 이슈 #37-(2) 결정 후 착수 [2026-04-24]
+- [ ] 프라이버시 FAQ "저장 vs 전송 vs 임시 작업 디렉토리" 구분 업데이트 — `frontend/index.html` / `en.html` 보안 FAQ에 3개 개념 분리 설명 추가, 이슈 #37-(4) 결정 후 착수 [2026-04-24]
+- [ ] `pr_lifecycle` cron 설계 문서 — stale 라벨 부여·30일 자동 close 규칙, F-03 구현 전 설계 근거 확정, 이슈 #37-(3) 결정 후 착수 [2026-04-24]
